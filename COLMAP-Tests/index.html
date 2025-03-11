@@ -172,21 +172,23 @@
 </body>
 <script>
     let progs = new Map();
-    document.querySelectorAll("ply-viewer").forEach(e => progs.set(e, [0, 1]))
+    document.querySelectorAll("ply-viewer").forEach(e => progs.set(e, 0))
+
     document.body.addEventListener("progress", (e) => {
-        progs.set(e.target, [e.progress, e.total]);
+        progs.set(e.target, e.progress);
         updateProgress();
     })
     document.body.addEventListener("load", (e) => {
-        progs.get(e.target)[0] = 1;
+        progs.set(e.target, 1)
         updateProgress();
     })
 
     function updateProgress() {
         let vals = progs.values()
-        let totalSize = progs.values().map(a=>a[1]).reduce((a,b)=>a+b);
-        let p = progs.values().map((a) => a[0]*a[1]).reduce((a,b)=>a+b) / totalSize;
-        console.log(vals);
+        // let totalSize = progs.values().map(a=>a[1]).reduce((a,b)=>a+b);/
+        let p = vals.reduce((a,b)=>a+b) / progs.size;
+
+        console.log(p);
         document.querySelector(".bar").style.setProperty("--p", p)
         if (p > 0.9999) {
             document.body.toggleAttribute("loaded", true)
