@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm"
+          }
+        }
+      </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COLMAP</title>
+    <style>
+        h2 { 
+            text-align: center;
+        }
+        body {
+            margin: 0;
+            width: 100%;
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        [loaded] .loading {
+            display: none;
+        }
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9;
+        }
+        .bar {
+            background-image: linear-gradient(#0d2a0d, #023b02, #022502);
+            /* background: #103110; */
+            width: 50vw;
+            border: 3px solid black;
+            position: absolute;
+            height: 4em;
+            top: 50%;
+            border-radius: 0.5em;
+            left: 50%;
+            overflow: hidden;
+            transform: translate(-50%, -50%);
+        }
+        .bar > div {
+            height: 4em;
+            position: absolute;
+            width: calc(var(--p) * 50vw);
+            background-image: linear-gradient(#17bc17, #117a11, #139912);
+        }
+        .loading h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            margin: 0;
+        }
+        
+        .img-cont {
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #878274;
+        }
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            position: fixed;
+            top: 1em;
+            left: 1em;
+            bottom: 1em;
+            right: 1em;
+        }
+        .row {
+            display: flex;
+            height: 50vh;
+            gap: 1em;
+        }
+        .fill {
+            width: 100%;
+            height: 100%;
+        }
+        ply-viewer {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        img {
+            height: 100%;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform-origin: top left;
+            transform: scale(calc(1 / var(--view-scale))); 
+            z-index: -1;
+        }
+    </style>
+    <script src = "./point-cloud.js" type = "module"></script>
+
+</head>
+<body>
+    <div class = "loading">
+        <h1>LOADING...</h1>
+        <div class = "bar">
+            <div></div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class = "img-cont" style='background-image: url("./data/PlantExample.png")'></div>
+            <ply-viewer mat = "1.90,-0.395,0.766,0.00,
+            -0.854,-1.10,1.56,0.00,
+            0.111,-1.73,-1.17,0.00,
+            0.00,0.00,0.00,1.01" src="./data/sparse-pc-Plant.ply">
+                <h2>Sparse</h2>
+            </ply-viewer>
+            <ply-viewer mat = "1.90,-0.395,0.766,0.00,
+            -0.854,-1.10,1.56,0.00,
+            0.111,-1.73,-1.17,0.00,
+            0.00,0.00,0.00,1.01" src="./data/fused-Plant.ply">
+                <h2>Dense</h2>
+            </ply-viewer>
+            <ply-viewer mat = "1.90,-0.395,0.766,0.00,
+            -0.854,-1.10,1.56,0.00,
+            0.111,-1.73,-1.17,0.00,
+            0.00,0.00,0.00,1.01" src="./data/meshed-delaunay-Pant.ply">
+                <h2>Meshed Delaunay</h2>
+            </ply-viewer>
+        </div>
+        <div class="row">
+            
+            <div class = "img-cont" style='background-image: url("./data/TapeMeasureExample.png")'></div>
+            <ply-viewer mat = "1.90,-0.395,0.766,0.00,
+            -0.854,-1.10,1.56,0.00,
+            0.111,-1.73,-1.17,0.00,
+            0.00,0.00,0.00,1.01" src="./data/sparse-pc-TapeMeasure.ply">
+                <h2>Sparse</h2>
+            </ply-viewer>
+            <ply-viewer mat="-0.858,0.512,0.0449,0.00,
+            0.371,0.677,-0.636,0.00,
+            -0.356,-0.529,-0.771,0.00,
+            0.00,0.00,0.00,1.00" src="./data/fused-TapeMeasure.ply">
+                <h2>Dense</h2>
+            </ply-viewer>
+            <ply-viewer mat = "-0.858,0.512,0.0449,0.00,
+            0.371,0.677,-0.636,0.00,
+            -0.356,-0.529,-0.771,0.00,
+            0.00,0.00,0.00,1.00" src="./data/meshed-delaunay-TapeMeasure.ply">
+                <h2>Meshed Delaunay</h2>
+            </ply-viewer>
+        </div>
+    </div>
+
+   
+</body>
+<script>
+    let progs = new Map();
+    document.querySelectorAll("ply-viewer").forEach(e => progs.set(e, [0, 1]))
+    document.body.addEventListener("progress", (e) => {
+        progs.set(e.target, [e.progress, e.total]);
+        updateProgress();
+    })
+    document.body.addEventListener("load", (e) => {
+        progs.get(e.target)[0] = 1;
+        updateProgress();
+    })
+
+    function updateProgress() {
+        let vals = progs.values()
+        // let totalSize = progs.values().map(a=>a[1]).reduce((a,b)=>a+b);
+        let p = progs.values().map((a) => a[0]).reduce((a,b)=>a+b) / vals.length;
+        console.log(vals);
+        document.querySelector(".bar").style.setProperty("--p", p)
+        if (p > 0.9999) {
+            document.body.toggleAttribute("loaded", true)
+        }
+
+    }
+</script>
+
+</html>
