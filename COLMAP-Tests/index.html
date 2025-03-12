@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="importmap">
-        {
-          "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm"
-          }
-        }
-      </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,8 +9,11 @@
     <style>
         h2 { 
             text-align: center;
+            font-size: min(14px, 3.6vw);
         }
         body {
+
+            --m: 0;
             margin: 0;
             width: 100%;
             color: white;
@@ -34,27 +30,33 @@
             bottom: 0;
             width: 100%;
             height: 100%;
-            background: white;
+            background: rgb(60, 58, 58);
             z-index: 9;
         }
+        .log {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            color: white;
+        }
         .bar {
-            background-image: linear-gradient(#0d2a0d, #023b02, #022502);
-            /* background: #103110; */
+            background: #241a1a;
+            border-radius: 1.3em;
+            border: 0.3em solid #241a1a;
             width: 50vw;
-            border: 3px solid black;
             position: absolute;
             height: 4em;
             top: 50%;
-            border-radius: 0.5em;
             left: 50%;
-            overflow: hidden;
             transform: translate(-50%, -50%);
         }
         .bar > div {
-            height: 4em;
+            height: 100%;
             position: absolute;
-            width: calc(var(--p) * 50vw);
-            background-image: linear-gradient(#17bc17, #117a11, #139912);
+            border-radius: 1em;
+            width: calc(2em + var(--p) * (50vw - 2em));
+            background: #20b720;
+            box-shadow: 0px 0px 5px lime, inset 0px 5px 20px 3px lime, inset 2px 3px 3px #ffffff, inset -2px -2px 5px black;
         }
         .loading h1 {
             position: absolute;
@@ -73,20 +75,37 @@
             background-position: center;
             background-color: #878274;
         }
+
+        @media (min-aspect-ratio: 3/2) {
+            .row {
+                flex-direction: row;
+            }
+            .col {
+                flex-direction: column;
+            }
+        }
+        @media (max-aspect-ratio: 3/2) {
+            .row {
+                flex-direction: column;
+            }
+            .col {
+                flex-direction: row;
+            }
+        }
         .col {
             display: flex;
-            flex-direction: column;
-            gap: 1em;
+            gap: var(--m);
             position: fixed;
-            top: 1em;
-            left: 1em;
-            bottom: 1em;
-            right: 1em;
+            top: var(--m);
+            left: var(--m);
+            bottom: var(--m);
+            right: var(--m);
         }
         .row {
             display: flex;
-            height: 50vh;
-            gap: 1em;
+            width: 100%;
+            height: 100%;
+            gap: var(--m);
         }
         .fill {
             width: 100%;
@@ -117,7 +136,8 @@
 </head>
 <body>
     <div class = "loading">
-        <h1>LOADING...</h1>
+        <div class = "log"></div>
+        <h1>LOADING</h1>
         <div class = "bar">
             <div></div>
         </div>
@@ -172,22 +192,42 @@
 </body>
 <script>
     let progs = new Map();
+    let down = new Map()
     document.querySelectorAll("ply-viewer").forEach(e => progs.set(e, 0))
 
     document.body.addEventListener("progress", (e) => {
+        
         progs.set(e.target, e.progress);
+        down.set(e.target, [e.progress*e.total, e.total])
         updateProgress();
     })
     document.body.addEventListener("load", (e) => {
         progs.set(e.target, 1)
+        let d = down.get(e.target)
+        d[0] = d[1]
         updateProgress();
     })
 
+    function round(a,b){
+        let p = 10**b;
+        return Math.round(p * a) / p;
+    }
+    let log = document.querySelector(".log");
+    let estimate = 100;
     function updateProgress() {
-        let vals = progs.values()
+        let vals = [...progs.values()];
         // let totalSize = progs.values().map(a=>a[1]).reduce((a,b)=>a+b);/
-        let p = vals.reduce((a,b)=>a+b) / progs.size;
+        // let p = vals.reduce((a,b)=>a+b) / progs.size;
+        let d = [...down.values()];
+        
+        let bytes = d.map(a=>a[0]).reduce((a,b)=>a+b)/1e6;
+        let total = d.map(a=>a[1]).reduce((a,b)=>a+b)/1e6;
 
+        total = total < estimate ? estimate : total;
+        p = bytes/total;
+
+        log.innerHTML = `${round(bytes, 1)}/${round(total, 1)}Mb`;
+        
         console.log(p);
         document.querySelector(".bar").style.setProperty("--p", p)
         if (p > 0.9999) {

@@ -1,46 +1,135 @@
 
 import { loadPLY, PlyElement } from './ply-loader.js';
-import * as THREE from 'three';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/controls/OrbitControls.js';
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
 
-// function centerPoints(points) {
-//     const axis = [..."xyz"]
-//     let avg = axis.map(c => {
-//         let vals = points.map(v => v[c]);
-//         let sum = vals.reduce((a,b)=>a+b);
-//         return sum / vals.length;
-//     });
+let SPACE_PRESSED = false;
+window.addEventListener("keydown", (e) => {
+    if (e.key === " ") {
+        e.preventDefault();
+        SPACE_PRESSED = true;
+    }
+});
+window.addEventListener("keyup", (e) => {
+    if (e.key === " ") {
+        e.preventDefault();
+        SPACE_PRESSED = false;
+    }
+})
 
-//     points.forEach(v => {
-//         axis.forEach((c,i) => v[c] -= avg[i])
-//     })
-// }
+class ObjectControls {
+    /** @type {TouchList} */
+    lastTouches = [];
 
-// function centerPoints_(points) {
-//     const avg = [0,0,0]
-//     points.forEach(p => {
-//         avg[0] += p[0]
-//         avg[1] += p[1]
-//         avg[2] += p[2]
-//     })
-//     avg[0] /= points.length
-//     avg[1] /= points.length
-//     avg[2] /= points.length
+    positionDelta = [0, 0];
+    angleDelta = [0, 0];
+    zoomDelta = 0;
+    rotationFactor = 100;
+    movementFactor = 40;
+    showMat = false;
+    moveFlag = 0;
+    
 
-//     points.forEach(v => {
-//        v[0] -= avg[0]
-//        v[1] -= avg[1]
-//        v[2] -= avg[2]
-//     })
-// }
+    constructor(clickBoxElement) {
+        clickBoxElement.addEventListener("touchmove", (e) => {
+            this.touchmove(e);
+        })
+        clickBoxElement.addEventListener("touchend", (e) => {
+            this.lastTouches = e.touches;
+            if (e.touches.length == 0) this.moveFlag = 0;
+        })
+        clickBoxElement.addEventListener("mousemove", (e) => {
+            let {movementFactor, rotationFactor} = this;
+           if (e.buttons) {
+                this.angleDelta = [e.movementX/rotationFactor, e.movementY/rotationFactor];
+                this.positionDelta = [e.movementX/movementFactor, e.movementY/movementFactor]
+                e.preventDefault();
+           }
+        });
+        clickBoxElement.addEventListener("wheel", (e) => {
+            this.zoomDelta = e.deltaY / 100;
+            e.preventDefault();
+        });
+        clickBoxElement.addEventListener("dblclick", () => {this.showMat = true});
+    }
+
+    /** @param {TouchList} touches */
+    touchesToPoints(touches) {
+        return [...touches].map(t => [t.clientX, t.clientY])
+    }
+
+    /** @param {TouchEvent} e */
+    touchmove(e) {
+        let {touches} = e;
+        let {lastTouches, rotationFactor, movementFactor} = this;
+
+        if (touches.length == 1 && lastTouches.length == 1) {
+            let lp = this.touchesToPoints(lastTouches)[0];
+            let p = this.touchesToPoints(touches)[0];
+            this.angleDelta = p.map((c,i)=>(c - lp[i])/rotationFactor);
+            this.positionDelta = this.angleDelta.map(c => 2*rotationFactor*c/movementFactor);
+            if (this.moveFlag == 1) this.moveFlag = 2;
+        } else if (touches.length == 2 && lastTouches.length == 2) {
+
+            let [p1, p2] = this.touchesToPoints(touches);
+            let [lp1, lp2] = this.touchesToPoints(lastTouches);
+
+            let cp = p1.map((c,i)=>(c + p2[i])/2);
+            let lcp = lp1.map((c,i)=>(c + lp2[i])/2);
+            
+            this.positionDelta = cp.map((c,i)=>(c - lcp[i])/(movementFactor/2));
+
+            let lent = p1.map((c,i)=>(c - p2[i])**2).reduce((a,b)=>a+b);
+            let lenl = lp1.map((c,i)=>(c - lp2[i])**2).reduce((a,b)=>a+b);
+            this.zoomDelta = lent/lenl - 1;
+            this.moveFlag = 1;
+        }
+
+        this.lastTouches = touches;
+        e.preventDefault();
+    }
+    update(threeObject){
+        let m;
+        let {angleDelta, positionDelta} = this;
+        if (this.moveFlag > 0 || SPACE_PRESSED) {
+            let [ddx, ddy] = positionDelta;
+            m = new THREE.Matrix4(); 
+            m.set(
+                1, 0, 0, ddx, 
+                0, 1, 0, -ddy, 
+                0, 0, 1, 0, 
+                0, 0, 0, 1, 
+            )
+            threeObject.applyMatrix4(m);
+        } 
+        if (!SPACE_PRESSED && this.moveFlag < 2) {
+            let [dx, dy] = angleDelta;
+            let rot_v = new THREE.Vector4(dy, dx, 0, 0);
+            m = new THREE.Matrix4(); 
+            m.identity();
+            m = m.multiply((new THREE.Matrix4().makeRotationX(rot_v.x)))
+            m = m.multiply((new THREE.Matrix4().makeRotationY(rot_v.y)))
+            m = m.multiply((new THREE.Matrix4().makeRotationZ(rot_v.z)))
+            m = m.multiplyScalar(1 + this.zoomDelta);
+            threeObject.applyMatrix4(m);
+        }
 
 
+        if (this.showMat) {
+            let e = threeObject.matrix.elements.map(e=>e.toPrecision(3))
+            let str = [0,4,8,12].map(i => [0,1,2,3].map(j => e[i+j]).join(",")).join(",\n");
+            console.log(str);
+        }
 
+        
+        this.showMat = false
+        this.angleDelta = angleDelta.map(c => c*0.5)
+        this.positionDelta = positionDelta.map(c => c*0.5)
+        this.zoomDelta *= 0.5;
+    }
+}
 
 // Create a class for the element
 class PlyViewer extends HTMLElement {
-
-
 
     static observedAttributes = ["color", "size"];
   
@@ -74,7 +163,7 @@ class PlyViewer extends HTMLElement {
         this.scene.add(light);
 
 
-        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls = new ObjectControls(this);
     }
 
     onResize(){
@@ -85,8 +174,6 @@ class PlyViewer extends HTMLElement {
             this.renderer.setSize(clientWidth * viewScale, clientHeight * viewScale);
             this.camera = new THREE.PerspectiveCamera(75, clientWidth / clientHeight, 0.1, 1000);
             this.camera.position.z = 10;
-            // this.camera.apsect = clientWidth / clientHeight;
-            // this.camera.updateProjectionMatrix();
         }
     }
 
@@ -159,7 +246,6 @@ class PlyViewer extends HTMLElement {
 
     }
 
-
  
     setPointSize(size) {
         this.pointSize = size;
@@ -167,80 +253,11 @@ class PlyViewer extends HTMLElement {
     }
 
     async animate() {
-        let space = false;
-        let ddx = 0;
-        let ddy = 0;
-        let dx = 0;
-        let dy = 0;
-        let dw = 0;
-        let set = false;
-        window.addEventListener("keydown", (e) => {
-            if (e.key === " ") {
-                e.preventDefault();
-                space = true;
-            }
-        });
-        window.addEventListener("keyup", (e) => {
-            if (e.key === " ") {
-                e.preventDefault();
-                space = false;
-            }
-        })
-        this.addEventListener("mousemove", (e) => {
-           if (e.buttons) {
-                dx = e.movementX/100;
-                dy = e.movementY/100;
-                ddx = e.movementX/25;
-                ddy = e.movementY/25;
-                e.preventDefault();
-           }
-        });
-        this.addEventListener("wheel", (e) => {
-            dw = e.deltaY / 100;
-            e.preventDefault();
-        });
-        this.addEventListener("dblclick", () => {set = true});
-
-
         while (true) {
             await new Promise((r) => requestAnimationFrame(r));
-
-            let m;
-            if (space) {
-                m = new THREE.Matrix4(); 
-                m.set(
-                    1, 0, 0, ddx, 
-                    0, 1, 0, -ddy, 
-                    0, 0, 1, 0, 
-                    0, 0, 0, 1, 
-                )
-            } else {
-                let rot_v = new THREE.Vector4(dy, dx, 0, 0);
-                m = new THREE.Matrix4(); 
-                m.identity();
-                m = m.multiply((new THREE.Matrix4().makeRotationX(rot_v.x)))
-                m = m.multiply((new THREE.Matrix4().makeRotationY(rot_v.y)))
-                m = m.multiply((new THREE.Matrix4().makeRotationZ(rot_v.z)))
-                m = m.multiplyScalar(1 + dw);
-            }
-          
-            this.pointsMesh.applyMatrix4(m);
+            this.controls.update(this.pointsMesh);
             this.renderer.render(this.scene, this.camera);
-
-            if (set) {
-                let e = this.pointsMesh.matrix.elements.map(e=>e.toPrecision(3))
-                let str = [0,4,8,12].map(i => [0,1,2,3].map(j => e[i+j]).join(",")).join(",\n")
-                console.log(str);
-            }
-            
-            set = false
-            dx *= 0.5;
-            dy *= 0.5;
-            ddx *= 0.5;
-            ddy *= 0.5;
-            dw *= 0.5;
         }
-
     }
 
     _dispProg(p, total) {
@@ -254,9 +271,9 @@ class PlyViewer extends HTMLElement {
         let size = 1;
         let data = await loadPLY(filename, (ss) => {
             size = ss.total;
-            this._dispProg(0.7 * ss.bytes / ss.total, ss.total);
+            this._dispProg(0.9 * ss.bytes / ss.total, ss.total);
         });
-        this._dispProg(0.9, size);
+        this._dispProg(0.95, size);
         return data;
     }
 
