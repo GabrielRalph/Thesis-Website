@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <three-scene>
+
+    </three-scene>
+</body>
+<style>
+    body { margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+    three-scene { 
+        display: block; 
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+    three-scene canvas { 
+        display: block; 
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        transform-origin: top left;
+        transform:scale(calc(1 / var(--view-scale)));
+    }
+    input { margin: 10px; }
+</style>
+<script src ="./main.js" type="module"></script>
+</html>

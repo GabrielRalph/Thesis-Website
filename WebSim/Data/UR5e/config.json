@@ -1,0 +1,432 @@
+{
+	"dh_parameters": [
+		{
+			"joint_angle_constraint": [
+				"-2*pi",
+				"2*pi"
+			],
+			"joint_type": "revolute",
+			"kinematics": "Joint0",
+			"parent": "Base",
+			"theta": 0,
+			"a": 0,
+			"d": 0.1625,
+			"alpha": "pi/2",
+			"dynamics": "Link0",
+			"mass": 3.761,
+			"center_of_mass": [
+				0,
+				-0.02561,
+				0.00193
+			],
+			"inertia_matrix": 0
+		},
+		{
+			"joint_angle_constraint": [
+				"-2*pi",
+				"2*pi"
+			],
+			"joint_type": "revolute",
+			"parent": "Joint0",
+			"kinematics": "Joint1",
+			"theta": 0,
+			"a": -0.425,
+			"d": 0,
+			"alpha": "0",
+			"dynamics": "Link1",
+			"mass": 8.058,
+			"center_of_mass": [
+				0.2125,
+				0,
+				0.11336
+			],
+			"inertia_matrix": 0
+		},
+		{
+			"joint_angle_constraint": [
+				"-2*pi",
+				"2*pi"
+			],
+			"joint_type": "revolute",
+			"parent": "Joint1",
+			"kinematics": "Joint2",
+			"theta": 0,
+			"a": -0.3922,
+			"d": 0,
+			"alpha": "0",
+			"dynamics": "Link2",
+			"mass": 2.846,
+			"center_of_mass": [
+				0.15,
+				0,
+				0.0265
+			],
+			"inertia_matrix": 0
+		},
+		{
+			"joint_angle_constraint": [
+				"-2*pi",
+				"2*pi"
+			],
+			"kinematics": "Joint3",
+			"joint_type": "revolute",
+			"parent": "Joint2",
+			"theta": 0,
+			"a": 0,
+			"d": 0.1333,
+			"alpha": "pi/2",
+			"dynamics": "Link3",
+			"mass": 1.37,
+			"center_of_mass": [
+				0,
+				-0.0018,
+				0.01634
+			],
+			"inertia_matrix": 0
+		},
+		{
+			"joint_angle_constraint": [
+				"-2*pi",
+				"2*pi"
+			],
+			"kinematics": "Joint4",
+			"joint_type": "revolute",
+			"parent": "Joint3",
+			"theta": 0,
+			"a": 0,
+			"d": 0.0997,
+			"alpha": "-pi/2",
+			"dynamics": "Link4",
+			"mass": 1.3,
+			"center_of_mass": [
+				0,
+				0.0018,
+				0.01634
+			],
+			"inertia_matrix": 0
+		},
+		{
+			"joint_angle_constraint": [
+				"-2*pi",
+				"2*pi"
+			],
+			"kinematics": "Joint5",
+			"joint_type": "revolute",
+			"parent": "Joint4",
+			"theta": 0,
+			"a": 0,
+			"d": 0.0996,
+			"alpha": "0",
+			"dynamics": "Link5",
+			"mass": 0.365,
+			"center_of_mass": [
+				0,
+				0,
+				-0.001159
+			],
+			"inertia_matrix": [
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0.0002
+			]
+		}
+	],
+	"files": {
+		"Links": {
+			"Base": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull10.stl",
+					"hull11.stl",
+					"hull12.stl",
+					"hull13.stl",
+					"hull14.stl",
+					"hull15.stl",
+					"hull16.stl",
+					"hull17.stl",
+					"hull18.stl",
+					"hull19.stl",
+					"hull2.stl",
+					"hull20.stl",
+					"hull21.stl",
+					"hull22.stl",
+					"hull23.stl",
+					"hull24.stl",
+					"hull25.stl",
+					"hull26.stl",
+					"hull27.stl",
+					"hull28.stl",
+					"hull29.stl",
+					"hull3.stl",
+					"hull30.stl",
+					"hull31.stl",
+					"hull32.stl",
+					"hull33.stl",
+					"hull34.stl",
+					"hull35.stl",
+					"hull36.stl",
+					"hull37.stl",
+					"hull38.stl",
+					"hull39.stl",
+					"hull4.stl",
+					"hull40.stl",
+					"hull41.stl",
+					"hull42.stl",
+					"hull43.stl",
+					"hull44.stl",
+					"hull45.stl",
+					"hull46.stl",
+					"hull47.stl",
+					"hull48.stl",
+					"hull49.stl",
+					"hull5.stl",
+					"hull50.stl",
+					"hull51.stl",
+					"hull52.stl",
+					"hull53.stl",
+					"hull54.stl",
+					"hull55.stl",
+					"hull56.stl",
+					"hull57.stl",
+					"hull58.stl",
+					"hull59.stl",
+					"hull6.stl",
+					"hull60.stl",
+					"hull61.stl",
+					"hull62.stl",
+					"hull63.stl",
+					"hull64.stl",
+					"hull65.stl",
+					"hull66.stl",
+					"hull67.stl",
+					"hull68.stl",
+					"hull69.stl",
+					"hull7.stl",
+					"hull70.stl",
+					"hull71.stl",
+					"hull72.stl",
+					"hull73.stl",
+					"hull74.stl",
+					"hull75.stl",
+					"hull76.stl",
+					"hull77.stl",
+					"hull78.stl",
+					"hull79.stl",
+					"hull8.stl",
+					"hull80.stl",
+					"hull81.stl",
+					"hull82.stl",
+					"hull83.stl",
+					"hull84.stl",
+					"hull9.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"choke1.stl",
+					"choke2.stl",
+					"main.stl",
+					"pin1.stl",
+					"pin2.stl",
+					"pin3.stl",
+					"pin4.stl",
+					"pin5.stl",
+					"pin6.stl",
+					"pin7.stl",
+					"plug.stl",
+					"ring.stl",
+					"wire0.stl",
+					"wire1.stl",
+					"wireSleave.stl",
+					"wireSleave2.stl"
+				]
+			},
+			"Link0": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull10.stl",
+					"hull11.stl",
+					"hull12.stl",
+					"hull13.stl",
+					"hull14.stl",
+					"hull15.stl",
+					"hull16.stl",
+					"hull17.stl",
+					"hull18.stl",
+					"hull19.stl",
+					"hull2.stl",
+					"hull20.stl",
+					"hull3.stl",
+					"hull4.stl",
+					"hull5.stl",
+					"hull6.stl",
+					"hull7.stl",
+					"hull8.stl",
+					"hull9.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"main.stl"
+				]
+			},
+			"Link1": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull2.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"main.stl"
+				]
+			},
+			"Link2": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull2.stl",
+					"hull3.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"main.stl"
+				]
+			},
+			"Link3": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull10.stl",
+					"hull11.stl",
+					"hull12.stl",
+					"hull13.stl",
+					"hull2.stl",
+					"hull3.stl",
+					"hull4.stl",
+					"hull5.stl",
+					"hull6.stl",
+					"hull7.stl",
+					"hull8.stl",
+					"hull9.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"main.stl"
+				]
+			},
+			"Link4": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull10.stl",
+					"hull11.stl",
+					"hull12.stl",
+					"hull13.stl",
+					"hull14.stl",
+					"hull15.stl",
+					"hull2.stl",
+					"hull3.stl",
+					"hull4.stl",
+					"hull5.stl",
+					"hull6.stl",
+					"hull7.stl",
+					"hull8.stl",
+					"hull9.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"main.stl",
+					"ring.stl"
+				]
+			},
+			"Link5": {
+				"ConvexHulls": [
+					"hull0.stl",
+					"hull1.stl",
+					"hull10.stl",
+					"hull11.stl",
+					"hull12.stl",
+					"hull13.stl",
+					"hull14.stl",
+					"hull15.stl",
+					"hull16.stl",
+					"hull17.stl",
+					"hull18.stl",
+					"hull19.stl",
+					"hull2.stl",
+					"hull20.stl",
+					"hull21.stl",
+					"hull22.stl",
+					"hull23.stl",
+					"hull24.stl",
+					"hull25.stl",
+					"hull26.stl",
+					"hull27.stl",
+					"hull28.stl",
+					"hull29.stl",
+					"hull3.stl",
+					"hull30.stl",
+					"hull31.stl",
+					"hull32.stl",
+					"hull33.stl",
+					"hull34.stl",
+					"hull35.stl",
+					"hull36.stl",
+					"hull37.stl",
+					"hull38.stl",
+					"hull39.stl",
+					"hull4.stl",
+					"hull40.stl",
+					"hull41.stl",
+					"hull42.stl",
+					"hull43.stl",
+					"hull44.stl",
+					"hull45.stl",
+					"hull46.stl",
+					"hull47.stl",
+					"hull48.stl",
+					"hull49.stl",
+					"hull5.stl",
+					"hull50.stl",
+					"hull51.stl",
+					"hull52.stl",
+					"hull53.stl",
+					"hull54.stl",
+					"hull6.stl",
+					"hull7.stl",
+					"hull8.stl",
+					"hull9.stl"
+				],
+				"MainBody": [
+					"main.stl"
+				],
+				"Visual": [
+					"main.stl",
+					"nut1.stl",
+					"nut2.stl",
+					"nut3.stl",
+					"nut4.stl"
+				]
+			}
+		}
+	}
+}
