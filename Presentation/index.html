@@ -59,7 +59,7 @@
                     <li>
                         <h3>Load object mesh.</h3>
                     </li>
-                    <li>
+                    <li style = "color: #7a00a7">
                         <h3>Check for collisions.</h3>
                         <ul>
                             <li><span>Self collisions.</span></li>
@@ -67,14 +67,14 @@
                             <li><span>Object collisions.</span></li>
                         </ul>
                     </li>
-                    <li>
+                    <li style = "color: #0b4d87">
                         <h3>Simulate LIDAR scans.</h3>
                         <ul>
                             <li><span>Raycasting.</span></li>
                             <li><span>Point cloud generation.</span></li>
                         </ul>
                     </li>
-                    <li>
+                    <li style = "color: #0ca811">
                         <h3>Calculate coverage.</h3>
                     </li>
                     <li>
@@ -91,6 +91,14 @@
             </div>
     </p-slide>
 
+    <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Collision Detection</h1>
+            <div class = "fill-image-container">
+                <img class = "fit-screen" src="Assets/collision-detection.svg" alt="Title Slide">
+            </div>
+        </div>
+    </p-slide>
 
     <p-slide >
         <div class = "flex-col">
@@ -101,20 +109,21 @@
         </div>
     </p-slide>
 
-    <p-slide >
-        <div class = "flex-col">
-            <h1 class = "s-h1"> Collision Detection</h1>
-            <div class = "fill-image-container">
-                <img class = "fit-screen" src="Assets/collision-detection.svg" alt="Title Slide">
-            </div>
-        </div>
-    </p-slide>
+   
 
     <p-slide>
         <h1 class = "s-h1 tc pos-abs white"> Visualisation</h1>
         <video class = "full-screen" src="Assets/vscode.mp4" autoplay loop muted></video>
     </p-slide>
 
+    <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Simulation Speed</h1>
+            <div class = "fill-image-container">
+                <svg-inline src="Assets/times-01.svg"></svg-inline>
+            </div>
+        </div>
+    </p-slide>
 
     <p-slide >
         <div class = "flex-col">
@@ -125,18 +134,86 @@
         </div>
     </p-slide>
 
-
-     <p-slide >
-        <div class = "flex-col">
-            <h1 class = "s-h1"> RL Training Results</h1>
-            <ur5-episode 
-                mat = "0.0563, 0.00613, -0.00608, 0.00, -0.00834, 0.0284, -0.0487, 0.00, -0.00221, 0.0490, 0.0290, 0.00, -1.30, -0.475, -0.0164, 1.00"
-                src = "../WebSim/Data/UR5.jstl" 
-                scene-src="../WebSim/Data/TestScene.jstl"
-                episode-src="./Assets/episode-lego.json"
-            ></ur5-episode>
+    <p-slide >
+        <div class = "flex-col" style = "margin: 0 0.5em;">
+            <h1 class = "s-h1"> Rewards and Results</h1>
+            <div class = "fill-container"  style = "height: 60%">
+                <div class="flex-row">
+                    <div class = "fill-image-container">
+                        <svg-inline src="Assets/Plots/reward.svg"></svg-inline>
+                    </div>
+                    <div class = "fill-image-container">
+                        <svg-inline src="Assets/Plots/rewards.svg"></svg-inline>
+                    </div>
+                </div>
+            </div>
+            <div class = "fill-container" style = "margin: 0.5em 0;">
+                <div class="flex-row">
+                    <div class = "fill-image-container">
+                        <svg-inline src="Assets/Plots/collisions.svg"></svg-inline>
+                    </div>
+                    <div class = "fill-image-container">
+                        <svg-inline src="Assets/Plots/coverage.svg"></svg-inline>
+                    </div>
+                </div>
+            </div>
         </div>
     </p-slide>
+
+
+     <p-slide >
+            <h1 class = "s-h1 tc pos-abs"> Initial RL Training Results</h1>
+            <ur5-episode 
+                mat = "0.0813, 0.00575, -0.0220, 0.00, -0.0226, 0.0108, -0.0807, 0.00, -0.00269, 0.0836, 0.0119, 0.00, -1.87, -2.54, 0.344, 1.00"
+                src = "../WebSim/Data/UR5.jstl" 
+                scene-src="../WebSim/Data/TestScene.jstl"
+                episode-src="./Assets/episode-shelf2.json"
+            ></ur5-episode>
+    </p-slide>
+
+    <p-slide >
+            <h1 class = "s-h1 tc pos-abs"> Initial RL Training Results</h1>
+            <ur5-episode 
+                mat = "0.0806, 0.00342, -0.00698, 0.00, -0.00725, 0.00671, -0.0804, 0.00, -0.00282, 0.0806, 0.00698, 0.00, -2.20, -2.36, 0.212, 1.00"
+                src = "../WebSim/Data/UR5.jstl" 
+                scene-src="../WebSim/Data/TestScene.jstl"
+                episode-src="./Assets/episode-lego2.json"
+            ></ur5-episode>
+        
+    </p-slide>
+    <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Conclusions</h1>
+            <ul style = "margin: 0 1em 1em 1em;">
+                <li>
+                    Developed a fast and easy to use simulation environment for active reconstruction tasks.
+                </li>
+                <li>
+                    Implemented collision detection, LIDAR simulation, and coverage calculation modules.
+                </li>
+                <li>
+                    Integrated with a reinforcement learning framework to train an active reconstruction agent.
+                </li>
+                <li>
+                    Obtained initial training results demonstrating the viability of the approach.
+                </li>
+            </ul>
+            <h1 style = "margin: 2em; text-align: center;"> Future Improvements</h1>
+            <ul style = "margin: 0 1em 1em 1em;">
+                <li>
+                    Further optimisations can be made to improve ray casting and collision detection.
+                </li>
+                <li>
+                    More work is need to shape the reward landscape of the RL policy.
+                </li>
+                <li>
+                    Explore different reinforcement learning algorithms and architectures.
+                </li>
+                <li>
+                    Conduct more evaluations in real-world scenarios.
+                </li>
+            </ul>
+        </div>
 
     </div>
 

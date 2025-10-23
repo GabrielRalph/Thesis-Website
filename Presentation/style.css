@@ -35,13 +35,29 @@ pc-cluster-scene {
     height: 100%;
     display: block;
 }
+.fill-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.fill-container > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    object-fit: cover;
+}
 .fill-image-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
 }
-.fill-image-container img {
+.fill-image-container img, .fill-image-container svg {
     position: absolute;
     top: 0;
     left: 0;
@@ -187,4 +203,8 @@ ul li span {
     z-index: 1000;
     padding: 1em;
     border-radius: 1em;
+}
+
+svg-inline {
+    display: contents;
 }

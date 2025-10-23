@@ -105,7 +105,7 @@ class UR5Episode extends UR5Scene {
             metalness: 0.3, 
             side: THREE.DoubleSide,
             flatShading: false,
-            vertexColors: geometry.hasColors
+            vertexColors: false
         });
         this.objectMaterial = material;
         const mesh = new THREE.Mesh( geometry, material );

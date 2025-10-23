@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 907.09 361.19">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <path d="M751.28,229.85c0,20.9-6.74,40.21-18.15,55.9l-76.93-55.9v-95.1c52.51,0,95.09,42.57,95.09,95.1Z" style="fill: #6ce3ff;"/>
+  <path d="M733.13,285.75c-3.53,4.84-7.5,9.35-11.85,13.41l-65.08-69.31,76.93,55.9Z" style="fill: #f04e23;"/>
+  <path d="M721.27,299.16c-17.01,16-39.9,25.78-65.08,25.78-52.53,0-95.1-42.57-95.1-95.09s42.57-95.1,95.1-95.1v95.1l65.08,69.31Z" style="fill: #c58fff;"/>
+  <text transform="translate(467.06 289.34)" style="font-family: SupremeLLTT-Medium, &apos;Supreme LL TT&apos;; font-size: 22.46px; font-weight: 500;"><tspan x="0" y="0">Collision </tspan><tspan x="0" y="26.95">Checks</tspan></text>
+  <text transform="translate(738.64 157.8)" style="font-family: SupremeLLTT-Medium, &apos;Supreme LL TT&apos;; font-size: 22.46px; font-weight: 500;"><tspan x="0" y="0">Raycasting</tspan></text>
+  <text transform="translate(738.01 306.82)" style="font-family: SupremeLLTT-Medium, &apos;Supreme LL TT&apos;; font-size: 22.46px; font-weight: 500;"><tspan x="0" y="0">other</tspan></text>
+  <line x1="721.28" y1="299.17" x2="721.27" y2="299.16" style="fill: none;"/>
+  <text transform="translate(580.51 240.02)" style="font-family: SupremeLLTT-Black, &apos;Supreme LL TT&apos;; font-size: 22.46px; font-weight: 800;"><tspan x="0" y="0">62%</tspan></text>
+  <text transform="translate(690.64 234.14)" style="font-family: SupremeLLTT-Black, &apos;Supreme LL TT&apos;; font-size: 19.96px; font-weight: 800;"><tspan x="0" y="0">35%</tspan></text>
+  <text transform="translate(706.09 280.33) rotate(45)" style="font-family: SupremeLLTT-Black, &apos;Supreme LL TT&apos;; font-size: 14.97px; font-weight: 800;"><tspan x="0" y="0">3%</tspan></text>
+  <text transform="translate(523.95 67.26)" style="font-family: SupremeLLTT-Medium, &apos;Supreme LL TT&apos;; font-size: 28.94px; font-weight: 500;"><tspan x="0" y="0">Time Break Down</tspan></text>
+  <text transform="translate(71 67.26)" style="font-family: SupremeLLTT-Medium, &apos;Supreme LL TT&apos;; font-size: 28.94px; font-weight: 500;"><tspan x="0" y="0">Average Frame Rate</tspan></text>
+  <text transform="translate(95.65 198.25) rotate(.13)" style="font-family: SupremeLLTT-Black, &apos;Supreme LL TT&apos;; font-size: 58.04px; font-weight: 800;"><tspan x="0" y="0">650FPS</tspan></text>
+  <text transform="translate(99.06 290.34)" style="font-family: SupremeLLTT-Medium, &apos;Supreme LL TT&apos;; font-size: 22.46px; font-weight: 500;"><tspan x="0" y="0">Tests carried out on a</tspan><tspan x="56.11" y="26.95">RTX 5090 </tspan></text>
+</svg>

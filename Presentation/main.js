@@ -4,6 +4,7 @@ import {} from "./pc-cluster-visual.js";
 import {} from "./pc-basic.js"
 import {} from "./ur5-scene.js"
 import {} from "./ur5-episode.js"
+import {} from "./svg-inline.js"
 
 const main = document.getElementById('main');
     const slideElements = document.querySelectorAll('p-slide');
