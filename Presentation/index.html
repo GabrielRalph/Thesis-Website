@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="https://arcms.w4v.es/Assets/Supreme/stylesheet.css">
 </head>
 <body>
+    <div id = main>
 
+    
     <p-slide>
         <div class = "flex-col">
             <h1 class = "s-h1"> Active Reconstruction</h1>
@@ -136,10 +138,13 @@
         </div>
     </p-slide>
 
+    </div>
+
 
 </body>
 
-<script>
+<script type = "module">
+    const main = document.getElementById('main');
     const slideElements = document.querySelectorAll('p-slide');
     const slides = [];
     let totalSlides = 0;
@@ -154,6 +159,7 @@
         for (let i = 0; i < slideCount; i++) {
             slides.push(slide);
         }
+
         slideElement.remove();
     }
     let currentSlideIndex = 0;
@@ -165,8 +171,8 @@
         slide.element.setAttribute('slide', relIndex+1);
         slide.element.setAttribute('slide-count', new Array(relIndex + 1).fill('x').join(''));
         slide.element.slide = relIndex
-        document.body.innerHTML = '';
-        document.body.appendChild(slide.element);
+        main.innerHTML = '';
+        main.appendChild(slide.element);
         let vids = slide.element.querySelectorAll('video');
         vids.forEach(v => v.play());
         window.localStorage.setItem('currentSlide', index);

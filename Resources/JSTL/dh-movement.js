@@ -159,7 +159,7 @@ export class DHTransform {
      * @returns {Promise<void>} A promise that resolves when the movement is complete
      */
     async moveTo(q, speed = 1) {
-        console.log("Moving to:", q, "at speed:", speed);
+        // console.log("Moving to:", q, "at speed:", speed);
         q = q.length < this.DH.length ? [...q, ...this.DH.slice(q.length).map(e => e.theta)] : q;
         let q0 = [...this.q];
         let tnow = performance.now();

@@ -1,7 +1,7 @@
 import { loadSTL, STLLoader } from "../Resources/Three/Loaders/STLLoader.js";
 import { UR5Scene } from "./ur5-scene.js";
 import * as THREE from '../Resources/Three/three.js';
-
+import * as LoadCount from "./loadCount.js";
 class VoxelMaskedMaterial extends THREE.MeshStandardMaterial {
   constructor(voxelGridOffset, voxelSize, voxelShape, coverColor, parameters = {}) {
     super(parameters);
@@ -84,6 +84,7 @@ class UR5Episode extends UR5Scene {
     }
 
     async load() {
+        LoadCount.add();
         let baseProm = super.load();
         let epUrl = this.getAttribute("episode-src");
         this.episode = await (await fetch(epUrl)).json();
@@ -114,6 +115,7 @@ class UR5Episode extends UR5Scene {
         mesh.matrixAutoUpdate = false;
 
         await baseProm
+        LoadCount.done();
     }
 
     async onconnected() {

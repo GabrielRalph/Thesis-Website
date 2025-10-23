@@ -2,6 +2,7 @@ import { loadZipFS } from "../Resources/zip.js";
 import { ThreeScene } from "../Resources/Three/basic-scene.js";
 import { PointCloud } from "../Resources/pc.js";
 import * as THREE from "../Resources/Three/three.js";
+import * as LoadCount from "./loadCount.js";
 
 async function parseCluster(url) {
     let fs = await loadZipFS(url);
@@ -24,7 +25,6 @@ async function parseCluster(url) {
         })
     })
 
-    console.log(proms);
     
     await Promise.all(proms.flat());
 
@@ -78,8 +78,12 @@ class PCClusterVisual extends ThreeScene {
     }
 
     async loadPointCloud() {
+        console.log("loading pc-cluster");
+        LoadCount.add();
+        
         let url = this.getAttribute("src");
         let clusterData = await parseCluster(url);
+        LoadCount.done();
         while (true)  {
             for (let pcg of clusterData.clusterGroups) {
                 this.clear();
@@ -92,6 +96,8 @@ class PCClusterVisual extends ThreeScene {
                 await new Promise((r) => setTimeout(r, 1700));
             }
         }
+        
+
     }
 }
 

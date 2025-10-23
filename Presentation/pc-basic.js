@@ -1,6 +1,6 @@
 import { PointCloud } from "../Resources/pc.js";
 import { ThreeScene } from "../Resources/Three/basic-scene.js";
-
+import * as LoadCount from "./loadCount.js";
 class PCBasic extends ThreeScene {
     constructor() {
         super();
@@ -11,6 +11,8 @@ class PCBasic extends ThreeScene {
     }
 
     async loadPC() {
+        console.log("loading pc");
+        LoadCount.add();
         let url = this.getAttribute("src");
         let isColored = this.hasAttribute("colored");
         let size = parseFloat(this.getAttribute("point-size")) || 0.001;
@@ -32,6 +34,7 @@ class PCBasic extends ThreeScene {
         }
         this.pc = pc;
         this.add(pc);
+        LoadCount.done();
     }
 
 

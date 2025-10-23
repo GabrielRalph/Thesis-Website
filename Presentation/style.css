@@ -177,3 +177,14 @@ ul li h3{
 ul li span {
     white-space: pre;
 }
+
+.load-count {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(197, 26, 26, 0.7);
+    color: white;
+    z-index: 1000;
+    padding: 1em;
+    border-radius: 1em;
+}
