@@ -1,19 +1,20 @@
 
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
+import * as THREE from "./three.js";
+
 import { ObjectControls } from './Controls/control.js';
 import { RGBELoader } from './Loaders/RGBELoader.js'
+import { PointCloud } from "../pc.js";
 export function relURL(url, meta) {
     let root = meta.url;
     url = url.replace(/^\.\//, "/");
     if (url[0] != "/") url = "/" + url;
     return root.split("/").slice(0, -1).join("/") + url;
   }
-class ThreeScene extends HTMLElement {
-    _viewScale = 3;
-    sizeObserver = null;
-
+export class ThreeScene extends HTMLElement {
     constructor() {
         super();
+        this._viewScale = 3;
+        this.sizeObserver = null;
         const scene = new THREE.Scene();
 
         // ✅ Load an HDRI environment for reflections
@@ -21,19 +22,31 @@ class ThreeScene extends HTMLElement {
         hdrLoader.load(relURL("../Assets/enviro.hdr", import.meta), function (texture) {
             texture.mapping = THREE.EquirectangularReflectionMapping;
             scene.environment = texture;
-            scene.background = new THREE.Color(0x000000);
+
+            // Trasparent background
+            scene.background = null;
+            // scene.background = new THREE.Color(0x21252b);
         })
 
         const camera = new THREE.PerspectiveCamera(75, this.innerWidth / this.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 10);
+        camera.position.set(0, 50, 100);
 
-        const renderer = new THREE.WebGLRenderer();
+    // preserveDrawingBuffer ensures toDataURL works reliably for screenshots
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
         renderer.setSize(this.innerWidth * 3, this.innerHeight * 3);
         renderer.toneMapping = THREE.ACESFilmicToneMapping; // Better dynamic range
         renderer.toneMappingExposure = 1.2;
         renderer.outputEncoding = THREE.sRGBEncoding; // Ensure proper color display
 
+        
         const controls = new ObjectControls(renderer.domElement);
+        let mat = this.getAttribute("mat");
+        if (mat) {
+            controls.isCached = false;
+            let m = new THREE.Matrix4();
+            m.fromArray(mat.split(",").map(e => parseFloat(e)));
+            controls.matrix = m;
+        }
 
         const light = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(light);
@@ -77,8 +90,6 @@ class ThreeScene extends HTMLElement {
             this.renderer.setSize(clientWidth * viewScale, clientHeight * viewScale);
             this.camera = new THREE.PerspectiveCamera(75, clientWidth / clientHeight, 0.1, 1000);
             this.camera.position.z = 10;
-            // this.camera.position.x = 50;
-            // this.camera.position.y = 50;
         }
     }
 
@@ -90,57 +101,18 @@ class ThreeScene extends HTMLElement {
         }
         this.sizeObserver.observe(this);
         this.start();
+        if (this.onconnected instanceof Function) {
+            this.onconnected()
+        }
     }
 
-
-        get pointMaterial(){
-            return new THREE.ShaderMaterial({
-                transparent: true,
-                uniforms: {
-                    size: {value: 10},
-                    scale: {value: 1},
-                    // color: {value: new THREE.Color('maroon')}
-                },
-                vertexShader: `
-                        uniform float size;
-                        attribute vec3 color;
-                        varying vec3 vColor;
-                        void main() {
-                            vColor = color;
-                            gl_PointSize = size * 1.0;
-                            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                        }
-                    `,
-                fragmentShader: `
-                varying vec3 vColor;
-                void main() {
-                    vec2 xy = gl_PointCoord.xy - vec2(0.5);
-                    float dist = length(xy);
-                    float alpha = smoothstep(0.5, 0.4, dist); // Anti-aliased edge
-                    if (dist > 0.5) discard; // Remove black box
-                    gl_FragColor = vec4(vColor, 1.0 -dist);
-                }
-                `
-            });
-        }
-    
-        /** @param {PlyElement} vertices */
-        addPointCloud(vertices, colors) {
-            const geometry = new THREE.BufferGeometry();
-    
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            if (Array.isArray(colors)) {
-                geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-            }
-    
-            this.pointsMesh = new THREE.Points(geometry, this.pointMaterial);
-            this.root.add(this.pointsMesh);
-        }
-    
 
     disconnectedCallback() {
         this.stop();
         this.sizeObserver.disconnect();
+        if (this.ondisconnected instanceof Function) {
+            this.ondisconnected()
+        }
     }
 
 
@@ -151,16 +123,49 @@ class ThreeScene extends HTMLElement {
         }
         while (!stop) {
             await new Promise(requestAnimationFrame)
+            if (this.beforeRender instanceof Function) {
+                this.beforeRender()
+            }
             if (this.root) this.controls.update(this.root);
+            if (this.pointclouds) {
+                for (let pc of this.pointclouds) {
+                    pc.update();
+                }
+            }
 
             this.renderer.render(this.scene, this.camera);
+
+            if (this.afterRender instanceof Function) {
+                this.afterRender()
+            }
         }
     }
 
     stop() { }
 
     add(object) {
+
+        if (object instanceof PointCloud) {
+            if (!this.pointclouds) this.pointclouds = [];
+            this.pointclouds.push(object);
+        }
         this.root.add(object);
+    }
+
+    clear() {
+        function disposeRecursive(obj) {
+            for (const child of obj.children) disposeRecursive(child);
+            if (obj.isMesh) {
+                obj.geometry?.dispose();
+                if (Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+                else obj.material?.dispose();
+            }
+        }
+        while (this.root.children.length) {
+            const child = this.root.children[0];
+            disposeRecursive(child);
+            this.root.remove(child);
+        }
     }
 }
 

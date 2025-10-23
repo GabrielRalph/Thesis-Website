@@ -8,9 +8,10 @@ import {
 	Vector3,
 	SRGBColorSpace,
 	MeshStandardMaterial,
+	MeshBasicMaterial,
 	Mesh,
 	DoubleSide,
-} from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
+} from "../three.js";
 
 /**
  * Description: A THREE loader for STL ASCII files, as created by Solidworks and other CAD programs.
@@ -71,6 +72,7 @@ class STLLoader extends Loader {
 		super( manager );
 
 	}
+
 
 	load( url, onLoad, onProgress, onError ) {
 
@@ -174,7 +176,9 @@ class STLLoader extends Loader {
 			// process STL header
 			// check for default color in header ("COLOR=rgba" sequence).
 
-			for ( let index = 0; index < 80 - 10; index ++ ) {
+
+
+			for ( let index = 0; index < 80; index ++ ) {
 
 				if ( ( reader.getUint32( index, false ) == 0x434F4C4F /*COLO*/ ) &&
 					( reader.getUint8( index + 4 ) == 0x52 /*'R'*/ ) &&
@@ -187,7 +191,7 @@ class STLLoader extends Loader {
 					defaultG = reader.getUint8( index + 7 ) / 255;
 					defaultB = reader.getUint8( index + 8 ) / 255;
 					alpha = reader.getUint8( index + 9 ) / 255;
-
+					
 				}
 
 			}
@@ -197,6 +201,8 @@ class STLLoader extends Loader {
 			const faceLength = 12 * 4 + 2;
 
 			const geometry = new BufferGeometry();
+
+			geometry.header = data.slice( 0, 80 );
 
 			const vertices = new Float32Array( faces * 3 * 3 );
 			const normals = new Float32Array( faces * 3 * 3 );
@@ -222,7 +228,7 @@ class STLLoader extends Loader {
 						g = ( ( packedColor >> 5 ) & 0x1F ) / 31;
 						b = ( ( packedColor >> 10 ) & 0x1F ) / 31;
 					} else {
-
+						
 						r = defaultR;
 						g = defaultG;
 						b = defaultB;
@@ -260,9 +266,8 @@ class STLLoader extends Loader {
 
 			geometry.setAttribute( 'position', new BufferAttribute( vertices, 3 ) );
 			geometry.setAttribute( 'normal', new BufferAttribute( normals, 3 ) );
-
+			geometry.hasColors = hasColors;
 			if ( hasColors ) {
-
 				geometry.setAttribute( 'color', new BufferAttribute( colors, 3 ) );
 				geometry.hasColors = true;
 				geometry.alpha = alpha;
@@ -410,23 +415,89 @@ class STLLoader extends Loader {
 	}
 
 }
+
+function extractHeader( header ) {
+	let color = null;
+	let roughness = null;
+	let reflectance = null;
+	let transparentDistance = null;
+	let IOR = null;
+	let hasMat = false;
+
+	let text = new TextDecoder().decode(header);
+	let view = new DataView(header.buffer);
+	let idx_mat = text.indexOf("MAT=");
+	let idx_col = text.indexOf("COL=");
+	if (idx_mat != -1) {
+		roughness = view.getFloat32(idx_mat + 4, true);
+		roughness = roughness < 0 ? null : roughness;
+		reflectance = view.getFloat32(idx_mat + 8, true);
+		reflectance = reflectance < 0 ? null : reflectance;
+		transparentDistance = view.getFloat32(idx_mat + 12, true);
+		transparentDistance = transparentDistance < 0 ? null : transparentDistance;
+		IOR = view.getFloat32(idx_mat + 16, true);
+		hasMat = true;
+	}
+	
+
+	if (idx_col != -1) {
+		// let r = view.getUint8(idx_col + 4);
+		// let g = view.getUint8(idx_col + 5);
+		let r = view.getUint8(idx_col + 4)/255;
+		let g = view.getUint8(idx_col + 5)/255;
+		let b = view.getUint8(idx_col + 6)/255;
+		let a = view.getUint8(idx_col + 7)/255;
+		// console.log(r,g,b,a, x, y);
+		
+		color = [r, g, b, a];
+	}
+	
+
+	return {color, roughness, reflectance, transparentDistance, IOR, hasMat};
+}
 async function loadSTL(url) {
 	try {
+		console.log(url);
+		
 		let data = await (await fetch(url)).arrayBuffer()
+
+		
+		
+		let header = data.slice(0, 80);
+		
 		const loader = new STLLoader();
 		const geometry = loader.parse(data);
+
+		console.log(header);
+		
+		const headerInfo = extractHeader(header);
+		// console.log(headerInfo);
+
 	
 		// Compute normals if they don't exist
 		if (!geometry.hasAttribute('normal')) {
 			geometry.computeVertexNormals();
 		}
 		
+		
 		// Use vertex colors if available
-		const material = new MeshStandardMaterial({ 
-			vertexColors: true,
-			side: DoubleSide,
-			flatShading: false // Smooth shading for better reflections
-		});
+		const material = !headerInfo.hasMat ? 
+			new MeshStandardMaterial({ 
+				vertexColors: geometry.hasColors,
+				side: DoubleSide,
+				flatShading: false // Smooth shading for better reflections
+			}) :
+			new MeshStandardMaterial({ 
+				// color: headerInfo.color ? new Color(...headerInfo.color) : new Color(0.8, 0.8, 0.8),
+				roughness: headerInfo.roughness != null ? headerInfo.roughness : 0.5,
+				metalness: 1, //headerInfo.reflectance != null ? headerInfo.reflectance : 0.5,
+				opacity: headerInfo.color ? headerInfo.color[3] : 1.0,
+				transparent: headerInfo.color ? headerInfo.color[3] < 1.0 : false,
+				side: DoubleSide,
+				flatShading: false ,// Smooth shading for better reflections
+				vertexColors: geometry.hasColors
+			});
+	
 		const mesh = new Mesh(geometry, material);
 		// obj = mesh;
 		// obj.add(mesh);
@@ -438,20 +509,41 @@ async function loadSTL(url) {
 
 export function parseSTL(data) {
 	try {
+		let header = new Uint8Array(data.slice(0, 80));
+
 		const loader = new STLLoader();
 		const geometry = loader.parse(data);
+
+		
+		const headerInfo = extractHeader(header);
+		// console.log(headerInfo);
 	
 		// Compute normals if they don't exist
-		if (!geometry.hasAttribute('normal')) {
+		// if (!geometry.hasAttribute('normal')) {
 			geometry.computeVertexNormals();
-		}
+		// }
 		
-		// Use vertex colors if available
-		const material = new MeshStandardMaterial({ 
-			vertexColors: true,
-			side: DoubleSide,
-			flatShading: false // Smooth shading for better reflections
-		});
+
+		const material = !headerInfo.hasMat ? 
+			new MeshStandardMaterial({ 
+				vertexColors: geometry.hasColors||false,
+				side: DoubleSide,
+				roughness: 0.3,
+				metalness: 0.4,
+				flatShading: false // Smooth shading for better reflections
+			}) :
+			new MeshStandardMaterial({ 
+				color: headerInfo.color ? new Color(...headerInfo.color) : new Color(0.8, 0.8, 0.8),
+				roughness: headerInfo.roughness,
+				metalness: headerInfo.reflectance,
+				// opacity: headerInfo.color[3],
+				// transparent: headerInfo.color ? headerInfo.color[3] < 1.0 : false,
+				side: DoubleSide,
+				vertexColors: geometry.hasColors,
+				flatShading: false // Smooth shading for better reflections
+				
+			});
+			
 		const mesh = new Mesh(geometry, material);
 		return mesh;
 	} catch (e) {

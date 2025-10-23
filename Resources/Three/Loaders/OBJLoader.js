@@ -14,7 +14,7 @@ import {
 	Vector3,
 	Color,
 	SRGBColorSpace
-} from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
+} from "../three.js";
 
 // o object_name | g group_name
 const _object_pattern = /^[og]\s*(.+)?/;

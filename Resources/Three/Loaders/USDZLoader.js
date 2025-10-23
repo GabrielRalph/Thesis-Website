@@ -14,7 +14,7 @@ import {
 	TextureLoader,
 	Object3D,
 	Vector2
-} from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
+} from "../three.js";
 
 import * as f from "./fflate.mjs"; 
 console.log(f);

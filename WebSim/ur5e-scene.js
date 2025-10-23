@@ -3,8 +3,15 @@ import { M2str, URx } from "../Resources/JSTL/urx-jstl.js";
 import {} from "../Resources/Three/basic-scene.js";
 import {Matrix3, Vector3, SphereGeometry, AxesHelper, MeshBasicMaterial, MeshStandardMaterial, Matrix4, Group, Mesh, DoubleSide} from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
 const { cos, sin, sqrt, atan2, acos, PI } = Math;
-let ur5e = await URx.load("./Data/UR5e.jstl", 1000);
+
+
+
+let ur5e = await URx.load("./Data/UR5-dh-comp.jstl", 1);
 let test = await JSTLGroup.load("./Data/TestScene.jstl")
+console.log(ur5e);
+
+ur5e.add(new AxesHelper(50));
+// ur5e.scale.set(10, 10, 10);
 
 async function delay(ms) {
     if (ms == null) {
@@ -16,7 +23,7 @@ async function delay(ms) {
     }
 }
 
-ur5e.q = [0, 0, 0, 0, 0, 0];
+ur5e.q = [0, 0, 0, 0, 0, 0, 0];
 
 let threeScene = document.querySelector("three-scene");
 threeScene.add(ur5e);
@@ -45,9 +52,11 @@ function checkCol(render = true) {
     }
 
     let t1 = performance.now() - t;
-    if (render) console.log(`Collision Check: ${t1}ms`);
+    if (render) console.log(`Collision Check: ${t1}ms - ${isColision ? "Collision" : "No Collision"}`);
     return isColision;
 }
+
+window.checkCol = checkCol;
 
 
 
@@ -77,8 +86,11 @@ function keyControls(q = [0, 0, 0, 0, 0, 0]){
     });
 }
 
-checkCol();
+keyControls();
 
+checkCol();
+window.ur = ur5e
+window.setQ = (q) => { ur5e.q = q; checkCol(); }
 export {ur5e, threeScene, checkCol, delay, keyControls};
 
 

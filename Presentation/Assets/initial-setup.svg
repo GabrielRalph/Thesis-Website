@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 240.94 510.24">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <rect x="33.09" y="6.19" width="83.78" height="48.62" rx="14.17" ry="14.17" style="fill: #fff; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+  <rect x="7.09" y="244.73" width="226.77" height="258.42" rx="28.35" ry="28.35" style="fill: #f89a42; opacity: .33;"/>
+  <rect x="39.45" y="251.9" width="74.36" height="16.64" rx="4.82" ry="4.82" style="fill: #ad4e00;"/>
+  <rect x="146.72" y="197.52" width="46.74" height="16.64" rx="4.82" ry="4.82" style="fill: #ad4e00;"/>
+  <rect x="37.96" y="379.49" width="158.3" height="91.84" rx="13" ry="13" style="fill: #fff; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+  <rect x="125.71" y="258.65" width="98.77" height="48.75" rx="14.17" ry="14.17" style="fill: #fff; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+  <rect x="108.44" y="62.96" width="123.45" height="48.18" rx="14.17" ry="14.17" style="fill: #fff; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+  <text transform="translate(62.66 27.08)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">UR5</tspan><tspan x="-20.32" y="14.4">Robot Arm</tspan></text>
+  <rect x="9.56" y="122.03" width="130.84" height="73.65" rx="14.41" ry="14.41" style="fill: #fff; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+  <text transform="translate(35.87 140.83)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">PolyScope</tspan></text>
+  <text transform="translate(59.28 492.4)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 16px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">Ubuntu Laptop</tspan></text>
+  <text transform="translate(144.7 279.49)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">Realsense</tspan><tspan x="17.77" y="14.4">SDK</tspan></text>
+  <text transform="translate(103.9 395.14)" style="font-size: 12px; letter-spacing: .07em;"><tspan x="0" y="0" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-weight: 500;">C</tspan><tspan x="8.9" y="0" style="font-family: Arial-BoldMT, Arial; font-weight: 700;">++</tspan><tspan style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-weight: 500;"><tspan x="-14.31" y="14.4">Program</tspan></tspan></text>
+  <g>
+    <path d="M152.6,359.57c3.83-32.97,17.57-20.88,17.57-52.17" style="fill: none; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+    <polygon points="159.58 355.53 151.62 379.49 146.53 354.76 159.58 355.53" style="fill: #d6690f;"/>
+  </g>
+  <g>
+    <path d="M80.48,216.91c1.94,83.8,15.73,114.25,15.73,162.58" style="fill: none; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+    <polygon points="74.21 221.5 80.25 196.98 87.28 221.24 74.21 221.5" style="fill: #d6690f;"/>
+  </g>
+  <g>
+    <path d="M69.71,196.98c0,85.99,11.98,120.97,15.17,162.59" style="fill: none; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+    <polygon points="78 355.43 85.66 379.49 91.06 354.82 78 355.43" style="fill: #d6690f;"/>
+  </g>
+  <text transform="translate(125.41 84.51)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">LIDAR Camera</tspan><tspan x="31.55" y="14.4">L515</tspan></text>
+  <g>
+    <path d="M74.98,74.74v27.35" style="fill: none; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+    <polygon points="68.44 79.2 74.98 54.81 81.52 79.2 68.44 79.2" style="fill: #d6690f;"/>
+    <polygon points="68.44 97.63 74.98 122.03 81.52 97.63 68.44 97.63" style="fill: #d6690f;"/>
+  </g>
+  <g>
+    <path d="M170.17,111.14c0,95.48,0,81.19,0,127.57" style="fill: none; stroke: #d6690f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3px;"/>
+    <polygon points="163.63 234.26 170.17 258.65 176.7 234.26 163.63 234.26" style="fill: #d6690f;"/>
+  </g>
+  <text transform="translate(149.59 210.74)" style="fill: #fff; font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">USB3.1</tspan></text>
+  <text transform="translate(42.6 264.88)" style="fill: #fff; font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">TCP Socket</tspan></text>
+  <text transform="translate(171.45 341.24)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500;"><tspan style="letter-spacing: .07em;"><tspan x="0" y="0">RGB</tspan></tspan><tspan style="letter-spacing: .07em;"><tspan x="-5.38" y="14.4">Depth</tspan></tspan><tspan style="letter-spacing: .07em;"><tspan x=".4" y="28.8">IMU</tspan></tspan></text>
+  <text transform="translate(94.55 219.63)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">Joint</tspan><tspan x="-4.81" y="14.4">angles</tspan></text>
+  <text transform="translate(36.15 343.45)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 12px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0">Actual</tspan><tspan x="5.81" y="14.4">Pose</tspan></text>
+  <text transform="translate(46.82 422)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 8px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0" xml:space="preserve"> - Computes point cloud</tspan><tspan x="0" y="9.6" xml:space="preserve"> - Save point cloud to file</tspan><tspan x="0" y="19.2" xml:space="preserve"> - Chooses next camera pose</tspan><tspan x="0" y="28.8" xml:space="preserve"> - Computes IK solution for pose</tspan><tspan x="0" y="38.4" xml:space="preserve"> - Send robot joint angles via TCP </tspan></text>
+  <text transform="translate(19.94 156.65)" style="font-family: SupremeTrialTT-Medium, &apos;Supreme Trial TT&apos;; font-size: 8px; font-weight: 500; letter-spacing: .07em;"><tspan x="0" y="0" xml:space="preserve"> - Directly controls the UR5</tspan><tspan x="0" y="9.6" xml:space="preserve"> - Teach pendant interface</tspan><tspan x="0" y="19.2" xml:space="preserve"> - Custom scripting </tspan><tspan x="0" y="28.8" xml:space="preserve">    language  </tspan></text>
+</svg>

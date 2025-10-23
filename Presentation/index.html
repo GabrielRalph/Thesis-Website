@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Presentation</title>
+    <script type="module" src="main.js" defer></script>
+    <link rel="stylesheet" href="https://arcms.w4v.es/Assets/Supreme/stylesheet.css">
+</head>
+<body>
+
+    <p-slide>
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Active Reconstruction</h1>
+            <div class = "fill-image-container">
+                <img class = "fit-screen" src = "Assets/system.svg">
+            </div>
+        </div>
+    </p-slide>
+
+    <p-slide>
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Initial Experiment Overview</h1>
+            <div class = "fill-image-container">
+                <img class = "fit-screen" src="Assets/initial-setup-h.svg" alt="Title Slide">
+            </div>
+        </div>
+    </p-slide>
+
+    <p-slide>
+        <h1 class = "s-h1 tc pos-abs"> Experimental Setup</h1>
+        <video class = "full-screen" src="Assets/initial-setup.mp4" autoplay loop muted></video>
+    </p-slide>
+
+    <p-slide>
+        <div class = "flex-col space-between">
+            <h1 class = "s-h1 t-center" style="margin-bottom: 0"> Experimental Point Cloud Results</h1>
+            <div class = "flex-row gap-1 pad">
+                <pc-cluster-scene class = "light-bg" src = "./Assets/groot-clusters_30_43921.zip" mat="46.5, 1.11, -21.3, 0.00, 11.9, -42.2, 23.7, 0.00, -16.7, -26.0, -37.9, 0.00, 2.55, 3.28, 4.55, 1.00" >
+                    <h1 class = "t-center">Processing</h1>
+                </pc-cluster-scene>
+                <pc-basic class = "light-bg" src = "./Assets/color_pc.bin" mat = "36.2, 1.89, 33.8, 0.00, 33.2, 7.46, -36.0, 0.00, -6.47, 49.0, 4.18, 0.00, 0.814, -8.68, -0.491, 1.00" colored>
+                    <h1 class = "t-center">Aggregation</h1>
+                </pc-basic>
+            </div>
+
+        </div>
+    </p-slide>
+    
+
+    <p-slide slides = "2">
+        <div class = "flex-col" >
+            <h1 class = "s-h1"> Simulation Environment Requirements</h1>
+            <div class = "flex-row  pad gap-1">
+                <ul>
+                    <li>
+                        <h3>Load object mesh.</h3>
+                    </li>
+                    <li>
+                        <h3>Check for collisions.</h3>
+                        <ul>
+                            <li><span>Self collisions.</span></li>
+                            <li><span>Fixed environment collisions.</span> </li>
+                            <li><span>Object collisions.</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Simulate LIDAR scans.</h3>
+                        <ul>
+                            <li><span>Raycasting.</span></li>
+                            <li><span>Point cloud generation.</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Calculate coverage.</h3>
+                    </li>
+                    <li>
+                        <h3>Easy visualisation</h3>
+                    </li>
+                    <li>
+                        <h3>Fast performance.</h3>
+                    </li>
+                </ul>
+                <div class = "fill-image-container">
+                    <img class = "show-on-2" src="Assets/logos-order.svg" alt="Title Slide">
+                    <img class = "show-on-1" src="Assets/logos.svg" alt="Simulation Requirements">
+                </div>
+            </div>
+    </p-slide>
+
+
+    <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> LIDAR Simulation and Coverage Calculations</h1>
+            <div class = "fill-image-container">
+                <img class = "fit-screen show-on-1" src="Assets/lidar.svg" alt="Title Slide">
+            </div>
+        </div>
+    </p-slide>
+
+    <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Collision Detection</h1>
+            <div class = "fill-image-container">
+                <img class = "fit-screen" src="Assets/collision-detection-01.svg" alt="Title Slide">
+            </div>
+        </div>
+    </p-slide>
+
+    <p-slide>
+        <h1 class = "s-h1 tc pos-abs white"> Visualisation</h1>
+        <video class = "full-screen" src="Assets/vscode.mp4" autoplay loop muted></video>
+    </p-slide>
+
+
+    <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> Training and RL Architecture</h1>
+        </div>
+    </p-slide>
+
+
+     <p-slide >
+        <div class = "flex-col">
+            <h1 class = "s-h1"> RL Training Results</h1>
+            <ur5-episode 
+                src = "../WebSim/Data/UR5.jstl" 
+                scene-src="../WebSim/Data/TestScene.jstl"
+                episode-src="./Assets/episode-lego.json"
+            ></ur5-episode>
+        </div>
+    </p-slide>
+
+
+</body>
+
+<script>
+    const slideElements = document.querySelectorAll('p-slide');
+    const slides = [];
+    let totalSlides = 0;
+    for (const slideElement of slideElements) {
+        let slideCount = parseInt(slideElement.getAttribute('slides')) || 1;
+        let slide = {
+            element: slideElement,
+            count: slideCount,
+            start: totalSlides
+        };
+        totalSlides += slideCount;
+        for (let i = 0; i < slideCount; i++) {
+            slides.push(slide);
+        }
+        slideElement.remove();
+    }
+    let currentSlideIndex = 0;
+    
+    function showSlide(index) {
+        let slide = slides[index];
+        let relIndex = index - slide.start;
+        slide.element.style.setProperty('--slide-index', relIndex);
+        slide.element.setAttribute('slide', relIndex+1);
+        slide.element.setAttribute('slide-count', new Array(relIndex + 1).fill('x').join(''));
+        slide.element.slide = relIndex
+        document.body.innerHTML = '';
+        document.body.appendChild(slide.element);
+        let vids = slide.element.querySelectorAll('video');
+        vids.forEach(v => v.play());
+        window.localStorage.setItem('currentSlide', index);
+    }
+
+    currentSlideIndex = parseInt(window.localStorage.getItem('currentSlide')) || 0;
+    showSlide(currentSlideIndex);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+            if (currentSlideIndex < totalSlides - 1) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
+            }
+        } else if (e.key === 'ArrowLeft') {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
+            }
+        }
+    });
+</script>
+</html>

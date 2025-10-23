@@ -1,9 +1,9 @@
-import {Matrix3, Vector3, Matrix4} from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
+import {Matrix3, Vector3, Matrix4} from "../three.js"
 import { GJK } from "./gjk2.js";
-import { gjk } from "./gjk.js";
+// import { gjk } from "./gjk.js";
 
 export class CollisionObject extends Float32Array{
-    safetyMargin = 5;
+    safetyMargin = 0.5;
 
     /** @param {{geomtry: Geometry}} obj */
     constructor(obj) {

@@ -1,105 +1,97 @@
 import { RRT_star, RRT_star_bi, RRTBase, RRTBase3D } from "../RRT/rrt.js";
 import { ur5e, checkCol, keyControls, delay } from "./ur5e-scene.js";
 
-const start = [ 2.7019792347424287,-1.3173311052470384,2.8275000189312407,-1.4862455674741186,Math.PI*2-5.067956569834711,2.4700399290593387 ];
-const goal =  [2.8019792347424284, -0.6173311052470392, 1.2525000189312463, -0.7612455674741201, Math.PI*2-7.742956569834749, 2.4700399290593387]
-// ur5e.q = [ 2.7019792347424287,-1.3173311052470384,2.8275000189312407,-1.4862455674741186,-5.067956569834711,2.4700399290593387 ]
-
-
-const t1 = new RRTBase(0.01);
-const t2 = new RRTBase(0.01);
-
-t1.isFree = (q) => {
-    ur5e.q = q;
-    return !checkCol(false);
+function deg(deg) {
+    return deg * Math.PI / 180;
 }
-t2.isFree = (q) => {
-    ur5e.q = q;
-    return !checkCol(false);
+function rad(rad) {
+    return rad * 180 / Math.PI;
 }
-// let next = RRT_star_bi(t1, t2, start, goal);
 
- const start2 = [2.2269792347424304, -0.9923311052470395, 2.6275000189312414]
- const goal2 = [3.2769792347424267, -0.442331105247039, 0.9775000189312472]
-let start3d = [...start2, 0, 0, 0 ];
-let goal3d = [...goal2, 0, 0, 0 ];
+let POI = [35, -35, 20];
+let Radius = 15;
 
-ur5e.q =goal3d;
-for (let i = 0; i < 1; i+=0.1) {
-    ur5e.q = start3d.map((e, j) => e * (1- i) + goal3d[j] * (i));
-    console.log("i");
+// let ThetaStart = deg(10);
+// let ThetaEnd = deg(80);
+
+// let incs = 20;
+// let minIncSize = 3; // cm
+
+// let path = new Array(incs).fill(0).map((_, i) => {
+//     let theta = ThetaStart + (ThetaEnd - ThetaStart) * i / (incs - 1);
+//     let xyCirc= Math.sin(theta) * Radius * 2 * Math.PI;
+//     let incs2 = Math.max(Math.round(xyCirc / minIncSize), 1);
+
+//     return new Array(incs2).fill(0).map((_, j) => {
+//         let phi = 2 * Math.PI * j / incs2;
+//         return ur5e.ik(ur5e.lookAt(POI, Radius, phi, theta));
+//     });
+// }).flat();
+
+function printT(T) {
+    let e = T.elements
+    let str = "";
+    console.log(T);
     
-    await delay(100);
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            str += e[i + j*4].toFixed(4).padStart(8) + (j < 3 ? ", " : "\n");
+        }
+    }
+    console.log(str);
 }
-// const sampler = () => new Array(6).fill(0).map(() => (Math.random() * 2 - 1) * Math.PI * 2);
 
-// let comp = false;
-// const itters = 100;
-// for (let i = 0; i < itters; i++) {
-//     for (let j = 0; j < itters; j++) {
-//         let q = sampler();
-//        comp = next(q);
-//         if (comp) {
-//             console.log("found");
-//             break;
-//         }   
+window.printT = printT;
+const test = [ 2.25074, -1.431454, 1.600367, -1.572865, -1.77331, 2.268076];
+ur5e.q = test;
+console.log(ur5e)
+printT(ur5e.current_T[5]);
+// const T = ur5e.lookAt(POI, Radius, Math.PI/4, Math.PI/4);
+
+// console.log(T);
+// let q = ur5e.ik(T);
+// q.forEach((qi, i) => {
+//     console.log(qi.map(a => a.toFixed(2).padStart(5)).join(", "));
+// })
+
+// let i = 0;
+// window.onkeydown = (e) => {
+//     let num = parseInt(e.key);
+//     if (num >= 1 && num <= 8) {
+//        i = num - 1;
+//        console.log(i);
+       
 //     }
-//     if (comp) {
-//         break;
-//     }
-//     await delay();
 // }
 
-// const best1 = t1.q_new;
-// const best2 = t2.q_new;
-// console.log(best1.cost + best2.cost);
-// // const best = t1.nearest([...goal]);
-
-// // console.log(best);
-// const itter2 = 100;
-// for (let i = 0; i < itter2; i++) {
-//     for (let j = 0; j < itter2; j++) {
-//         t1.starExtend(sampler());
-//         t2.starExtend(sampler());
-//         console.log(best1.cost + best2.cost);
+// let path6 = path.map(q => q[5]);
+// let max = new Array(6).fill(0).map((_, i) => Math.max(...path6.map(p => p[i])));
+// let min = new Array(6).fill(0).map((_, i) => Math.min(...path6.map(p => p[i])));
+// for (let j = 0; j < 6; j++) {
+//     if (min[j] > Math.PI) {
+//         min[j] -= 2*Math.PI;
+//         max[j] -= 2*Math.PI;
+//         for (let k = 0; k < path6.length; k++) {
+//             path6[k][j] -= 2*Math.PI;
+//         }
+//     } else if (max[j] < -Math.PI) {
+//         min[j] += 2*Math.PI;
+//         max[j] += 2*Math.PI;
+//         for (let k = 0; k < path6.length; k++) {
+//             path6[k][j] += 2*Math.PI;
+//         }
+//     }
         
-//     }
-
-//     await delay();
+//     console.log(`Joint ${j+1}: Min: ${rad(min[j]).toFixed(1)}, Max: ${rad(max[j]).toFixed(1)}`);
 // }
-// console.log(best1.cost + best2.cost);
+// console.log(path6);
 
-// function getPathToRoot(leaf) {
-//     let path = [[...leaf]];
-//     while (leaf.parent) {
-//         leaf = leaf.parent;
-//         path.push([...leaf]);
-//     }
-//     return path
-// }
-// // const totalPath = getPathToRoot(best).reverse()
-// // totalPath.push([...goal]); 
-
-// // console.log(totalPath);
-
-// let path1 = getPathToRoot(best1);
-// let path2 = getPathToRoot(best2);
-
-// let totalPath = [...path1.reverse(), ...path2];
-// for (let i = 0; i < totalPath.length; i++) {
-//     let q = totalPath[i];
-//     ur5e.q = q;
-//     await delay();
-//     console.log(checkCol(true))
-// }
-
-// window.ondblclick = async () => {
-//     for (let i = 0; i < totalPath.length; i++) {
-//         let q = totalPath[i];
-//         ur5e.q = q;
-//         await delay(100);
-//         console.log(checkCol(true))
+// ur5e.q = path6[0];
+// while (true) {
+//     for (let j = 1; j < path.length; j++) {
+//         await ur5e.moveTo(path6[j], 3);
+//         // let str = path6[j].map(a => rad(a).toFixed(0)).join(", ");
+//         // console.log(str);
+//         // await delay(500);
 //     }
 // }
-
-keyControls(start3d);

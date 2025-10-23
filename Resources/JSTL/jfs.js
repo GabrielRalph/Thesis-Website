@@ -18,6 +18,94 @@ export class FileObject {
     }
 }
 
+class FSObject {
+    constructor() {
+        this.collisionHulls = [];
+        this.visualBodys = [];
+        this.children = {};
+        this.properties = []
+    }
+
+    async set(parts, value) {
+        let addNext = false;
+        if (parts.length === 0) {
+            return
+        } else if (parts.length === 1) {
+            let key = parts[0];
+            if (key.endsWith(".json")) {
+                const configText = await value.getData(new zip.TextWriter());
+                try {
+                    let config = JSON.parse(configText);
+                    for (let k in config) {
+                        this[k] = config[k];
+                        this.properties.push(k);
+                    }
+                } catch (e) {
+                    console.warn("Failed to parse JSON:", e);
+                }
+            } else {
+                key = key.split(".").slice(0, -1).join(".");
+                this[key] = value;
+                this.properties.push(new FileObject(key, value));
+            }
+        } else if (parts.length === 2) {
+            if (parts[0] === "ConvexHulls") {
+                this.collisionHulls.push(new FileObject(parts[1], value));
+            } else if (parts[0] === "Visual") {
+                this.visualBodys.push(new FileObject(parts[1], value));
+            } else {
+                addNext = true;
+            }
+        } else {
+            addNext = true;
+        }  
+        if (addNext) {
+            let [category, ...rest] = parts;
+            if (!(category in this.children)) {
+                this.children[category] = new FSObject();
+            }
+            await this.children[category].set(rest, value);
+        }
+    }
+
+
+    reduce() {
+        let childKeys = Object.keys(this.children);
+        if (childKeys.length === 1 && this.collisionHulls.length === 0 && this.visualBodys.length === 0) {
+            return this.children[childKeys[0]].reduce();
+        } else {
+            for (let k in this.children) {
+                this.children[k] = this.children[k].reduce();
+            }
+            return this;
+        }
+    }
+}
+
+export async function parseJFS(data) {
+    const zipFileReader = new zip.Uint8ArrayReader(data);
+    const zipReader = new zip.ZipReader(zipFileReader);
+    const entries = await zipReader.getEntries();
+    let entriesByName = {};
+    let fs = new FSObject();
+
+    await Promise.all(entries.map(async (entry) => {
+        let name = entry.filename;
+        let isHidden = name.match(/(^|\/)\.[^\/\.]/);
+        if (!isHidden && !entry.directory) {
+            let path = name.split("/");
+            await fs.set(path, entry);
+            entriesByName[entry.filename] = entry;
+        }
+    }));
+    
+    console.log(entriesByName);
+    
+    fs = fs.reduce();
+    
+    return fs
+}
+    
 export async function loadJFS(url) {
     let blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
@@ -41,42 +129,19 @@ export async function loadJFS(url) {
     const zipReader = new zip.ZipReader(zipFileReader);
     const entries = await zipReader.getEntries();
     let entriesByName = {};
-    entries.forEach((entry) => {
-        entriesByName[entry.filename] = entry;
-    });
+    let fs = new FSObject();
 
-    let jfs = null;
-    if ("config.json" in entriesByName) {
-        const configText = await entriesByName["config.json"].getData(new zip.TextWriter());
-        const config = JSON.parse(configText);
-
-        let recurse = (obj, path) => {
-            for (let key in obj) {
-                let fullPath = path ? path + "/" + key : key;
-
-                if (typeof obj[key] === "string" || Array.isArray(obj[key])) {
-                    let fileNames = typeof obj[key] === "string" ? [obj[key]] : obj[key];
-                    
-                    obj[key] = fileNames.map(name => {
-                        let fileObject = null;
-                        let fullName = fullPath + "/" + name;
-                        if (!(fullName in entriesByName)) {
-                            console.warn(`File not found: ${fullName}`);
-                        } else {
-                            fileObject = new FileObject(name, entriesByName[fullName]);
-                        }
-                        return fileObject;
-                    });
-                } else if (typeof obj[key] === "object") {
-                    recurse(obj[key], fullPath);
-                }
-            }
+    await Promise.all(entries.map(async (entry) => {
+        let name = entry.filename;
+        let isHidden = name.match(/(^|\/)\.[^\/\.]/);
+        if (!isHidden && !entry.directory) {
+            let path = name.split("/");
+            await fs.set(path, entry);
+            entriesByName[entry.filename] = entry;
         }
-
-        recurse(config.files, "") 
-
-        jfs = config
-    }
+    }));
     
-    return jfs
+    fs = fs.reduce();
+    
+    return fs
 }

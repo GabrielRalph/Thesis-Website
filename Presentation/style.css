@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Supreme LL TT', sans-serif;
+    font-size: 2.2vw;
+}
+
+.light-bg {
+    background: #f6f3f1;
+    border-radius: 3em;
+    overflow: hidden;
+}
+
+.s-h1 {
+    font-size: 6vh;
+    margin: 0.5em;
+    text-align: center;
+}
+
+.pad {
+    padding: 1em;
+}
+.gap-1 {
+    gap: 1em;
+}
+p-slide {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: block;
+    position: relative;
+}
+pc-cluster-scene {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.fill-image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.fill-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.space-between {
+    justify-content: space-between;
+}
+.full-screen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.pos-abs {
+    position: absolute;
+}
+.tr {
+    top: 10px;
+    right: 10px;
+}   
+.br {
+    bottom: 10px;
+    right: 10px;
+}  
+
+.tr, .tl, .br, .bl {
+    --size: calc(50vmin - 20px);
+    width: var(--size);
+    height: var(--size);
+}
+
+.r {
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+}
+.l {
+    left: 10px;
+    top: 10px;
+    bottom: 10px;
+}
+
+.tc {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+h1.tc {
+    text-align: center;
+    margin: 0;
+    top: 0.5em;
+    text-shadow: 0 0 30px #ffffffbd;
+}
+h1.tc.white {
+    color: white;
+    text-shadow: 0 0 30px #000000d3;
+}
+.fit-screen {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.fit-height {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+.overlay {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.688);
+    backdrop-filter: blur(5px);
+    border-radius: 3em;
+    overflow: hidden;
+}
+
+.width-100 {
+    width: 100%;
+}
+p-slide:not([slide="1"]) .show-on-1 {
+    opacity: 0;
+}
+p-slide:not([slide="2"]) .show-on-2 {
+    opacity: 0;
+}
+p-slide:not([slide-count*="xx"]) .show-after-2 {
+    opacity: 0;
+}
+p-slide:not([slide-count*="xxx"]) .show-after-3 {
+    opacity: 0;
+}
+ 
+h1 {
+    font-size: 1.1em;
+}
+.t-center {
+    text-align: center;
+}
+three-scene, pc-cluster-scene, pc-basic, ur5-scene, ur5-episode { 
+    display: block; 
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+three-scene canvas, pc-cluster-scene canvas, pc-basic canvas, ur5-scene canvas, ur5-episode canvas { 
+    display: block; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    transform-origin: top left;
+    transform:scale(calc(1 / var(--view-scale)));
+}
+h3 {
+    margin: 0.2em;
+}
+
+ul li h3{
+    white-space: pre;
+}
+ul li span {
+    white-space: pre;
+}

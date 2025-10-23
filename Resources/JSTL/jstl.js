@@ -2,68 +2,64 @@ import {
     Group
 } from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
 import { CollisionObject } from "../Three/GJK/collisionObject.js";
-import { FileObject, loadJFS } from "./jfs.js";
-import { parseSTL, STLLoader } from "../Three/Loaders/STLLoader.js";
+import { loadJFS, parseJFS } from "./jfs.js";
+import { parseSTL } from "../Three/Loaders/STLLoader.js";
+import { DHTransform } from "./dh-movement.js";
 
-function isRootGroup(obj) {
-    return "Visual" in obj && "ConvexHulls" in obj;
-}
 
 export class JSTLGroup extends Group {
     constructor() {
         super();
+        this.collisionHulls = [];
+        this.visualBodys = [];
+        this.childrenByName = {};
     }
 
-    async LoadSTLGroup(files, root = "", path = []) {
-        this.sub = {};
-        this.collisionHulls = [];
-        this.isRoot = false;
-        this.name = root;
-        this.path = path;
+    async checkForKinematicCollisions() {
 
+    }
 
-        if (isRootGroup(files)) {
-            await this.loadRootSTLGroup(files);
+    async LoadSTLGroup(fs) {
+        for (let key of fs.properties) {
+            this[key] = fs[key];
+        }
+        await Promise.all([
+            ...fs.collisionHulls.map(f => this.addConvexHullFile(f)),
+            ...fs.visualBodys.map(f => this.addVisualFile(f)),
+            ...Object.keys(fs.children).map((k) => this.addChildGroup(k, fs.children[k]))
+        ])
+
+        if (this.dh_parameters) {
+            this.kinematics = new DHTransform(this);
         } else {
-            await Promise.all(Object.keys(files).map(async key => {
-                let subGroup = new JSTLGroup();
-                await subGroup.LoadSTLGroup(files[key], key, [...path, key]); // Changed 'value' to 'files[key]'
-                this.sub[key] = subGroup;
-                this.add(subGroup);
-            }))
+            this.kinematics = null;
         }
     }
 
-    /** @param {Object<string, FileObject[]>} files */
-    async loadRootSTLGroup(files) {
-        let collisionHulls = [];
-        let visualBodys = [];
-        let {Visual, ConvexHulls} = files;
-       
-        await Promise.all([
-            ...Visual.map(async file => {
-                let data = await file.getUint8Array();
-                let mesh = parseSTL(data.buffer);
-                mesh.name = file.name;
-                mesh.path = [...this.path, file.name];
-                this.add(mesh);
-                visualBodys.push(mesh);
-            }),
-        
-            ...ConvexHulls.map(async file => {
-                let data = await file.getUint8Array();
-                let mesh = parseSTL(data.buffer);
-                mesh.material.transparent = true;
-                mesh.material.opacity = 0;
-                collisionHulls.push(new CollisionObject(mesh));
-                mesh.name = file.name;
-                mesh.path = [...this.path, file.name];
-                this.add(mesh);
-            })
-        ]);
-        this.visualBodys = visualBodys;
-        this.collisionHulls = collisionHulls;
-        this.isRoot = true;
+    async addChildGroup(name, fs) {
+        let group = new JSTLGroup();
+        group.name = name;
+        await group.LoadSTLGroup(fs);
+        this.childrenByName[name] = group;
+        this.add(group);
+    }
+
+    async addConvexHullFile(file) {
+        let data = await file.getUint8Array();
+        let mesh = parseSTL(data.buffer);
+        mesh.material.transparent = true;
+        mesh.material.opacity = 0;
+        this.collisionHulls.push(new CollisionObject(mesh));
+        mesh.name = file.name;
+        this.add(mesh);
+    }
+
+    async addVisualFile(file) {
+        let data = await file.getUint8Array();
+        let mesh = parseSTL(data.buffer);
+        mesh.name = file.name;
+        this.visualBodys.push(mesh);
+        this.add(mesh);
     }
 
     /** @param {number} value */
@@ -81,18 +77,13 @@ export class JSTLGroup extends Group {
         }
     }
 
-
     get collisionObjects() {
-        if (this.isRoot) {
-            return [...this.collisionHulls];
-        } else {
-            let collisionObjects = [];
-            for (let key in this.sub) {
-                let subGroup = this.sub[key];
-                collisionObjects.push(...subGroup.collisionObjects);
-            }
-            return collisionObjects;
+        let colisionObjects = [...this.collisionHulls];
+        for (let key in this.childrenByName) {
+            let subGroup = this.childrenByName[key];
+            colisionObjects.push(subGroup.collisionObjects);
         }
+        return colisionObjects.flat();
     }
 
     /** @param {JSTLGroup} other */
@@ -115,14 +106,16 @@ export class JSTLGroup extends Group {
      * @returns {Promise<JSTLGroup>} 
      * */
     static async load(url) {
-        let config = await loadJFS(url);
-        let files = config.files;
-    
-        
+        let fs = await loadJFS(url);
         let group = new this();
-        await group.LoadSTLGroup(files);
-        group.config = config;
-        delete group.config.files;
+        await group.LoadSTLGroup(fs);
+        return group;
+    }
+
+    static async fromBuffer(data) {
+        let fs = await parseJFS(data);
+        let group = new this();
+        await group.LoadSTLGroup(fs)
         return group;
     }
 }

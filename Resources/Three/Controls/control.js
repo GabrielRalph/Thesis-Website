@@ -1,4 +1,4 @@
-import {Vector4, Matrix4} from "https://cdn.jsdelivr.net/npm/three@0.174.0/+esm";
+import {Vector4, Matrix4} from "../three.js";
 
 let SPACE_PRESSED = false;
 window.addEventListener("keydown", (e) => {
@@ -14,10 +14,16 @@ window.addEventListener("keyup", (e) => {
     }
 })
 
+
+function logM(m) {
+    let e = m.elements.map(e=>e.toPrecision(3))
+    console.log(`${[0,4,8,12].map(i => [0,1,2,3].map(j => e[i+j]).join(", ")).join(",\n")}`);
+}
+
+
 export class ObjectControls {
     /** @type {TouchList} */
     lastTouches = [];
-
     positionDelta = [0, 0];
     angleDelta = [0, 0];
     zoomDelta = 0;
@@ -27,14 +33,16 @@ export class ObjectControls {
     moveFlag = 0;
     
 
-    constructor(clickBoxElement) {
+    constructor(clickBoxElement, isCached = true) {
         clickBoxElement.addEventListener("touchmove", (e) => {
             this.touchmove(e);
         })
+
         clickBoxElement.addEventListener("touchend", (e) => {
             this.lastTouches = e.touches;
             if (e.touches.length == 0) this.moveFlag = 0;
         })
+
         clickBoxElement.addEventListener("mousemove", (e) => {
             let {movementFactor, rotationFactor} = this;
            if (e.buttons) {
@@ -43,15 +51,29 @@ export class ObjectControls {
                 e.preventDefault();
            }
         });
+
         clickBoxElement.addEventListener("wheel", (e) => {
             this.zoomDelta = e.deltaY / 100;
             
             e.preventDefault();
         });
-        clickBoxElement.addEventListener("dblclick", () => {this.showMat = true});
 
-        this.matrix = JSON.parse(localStorage.getItem("matrix")) || new Matrix4().identity();
+
+        clickBoxElement.addEventListener("dblclick", () => {
+            this.hardSet = true
+            this._matrix = new Matrix4().identity();
+        });
+
+        clickBoxElement.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            this.showMat = true;
+        });
+
+        this.isCached = isCached;
+        if (isCached) this.matrix = JSON.parse(localStorage.getItem("matrix")) || new Matrix4().identity();
     }
+
+
 
     /** @param {TouchList} touches */
     touchesToPoints(touches) {
@@ -104,6 +126,7 @@ export class ObjectControls {
             )
             threeObject.applyMatrix4(m);
         } 
+
         if (!SPACE_PRESSED && this.moveFlag < 2) {
             let [dx, dy] = angleDelta;
             let rot_v = new Vector4(dy, dx, 0, 0);
@@ -117,14 +140,6 @@ export class ObjectControls {
         }
 
 
-        if (this.showMat) {
-            let m = threeObject.matrix.clone();
-            m.transpose();
-            let e = m.elements.map(e=>e.toPrecision(3)).join(", ");
-            // let str = [0,4,8,12].map(i => [0,1,2,3].map(j => e[i+j]).join(",")).join(",\n");
-            console.log(e);
-        }
-
         if (this.hardSet) {
             threeObject.matrix.copy(this._matrix);
             threeObject.matrixAutoUpdate = false;
@@ -133,7 +148,18 @@ export class ObjectControls {
             threeObject.matrixAutoUpdate = true;
         }
 
-        localStorage.setItem("matrix", JSON.stringify(threeObject.matrix.clone().transpose().elements));
+
+        if (this.showMat) {
+            let m = threeObject.matrix.clone();
+            // m.transpose();
+            let e = m.elements.map(e=>e.toPrecision(3)).join(", ");
+            console.log(e);
+            this.showMat = false;
+        }
+
+
+        if (this.isCached)
+            localStorage.setItem("matrix", JSON.stringify(threeObject.matrix.clone().transpose().elements));
 
         this.showMat = false
         this.angleDelta = angleDelta.map(c => c*0.5)
@@ -149,10 +175,6 @@ export class ObjectControls {
         } else {
             throw new Error("Matrix must be a Matrix4 or an array");
         }
-        console.log(m);
-        
-        // this.threeObject.matrix = m
-        // this.threeObject.matrixAutoUpdate = false;
         this._matrix = m;
         this.hardSet = true;
     }
