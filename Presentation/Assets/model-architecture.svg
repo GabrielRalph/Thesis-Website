@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 983.25 506.99">
+  <!-- Generator: Adobe Illustrator 29.8.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 2)  -->
+  <g>
+    <rect x="319.98" y="410.06" width="31.25" height="75.77" transform="translate(783.55 112.35) rotate(90)" style="fill: #a644f2;"/>
+    <text transform="translate(317.44 452.5)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Tanh</tspan></text>
+    <g>
+      <rect x="319.98" y="375.12" width="31.25" height="75.77" transform="translate(748.61 77.4) rotate(90)" style="fill: #4480be;"/>
+      <text transform="translate(311.95 417.56) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Linear</tspan></text>
+    </g>
+    <polygon points="339.34 428.63 335.6 433.92 331.87 428.63 339.34 428.63" style="fill: #4480be;"/>
+  </g>
+  <g>
+    <rect x="452.93" y="410.06" width="31.25" height="75.77" transform="translate(916.51 -20.61) rotate(90)" style="fill: #a644f2;"/>
+    <text transform="translate(450.4 452.5)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Tanh</tspan></text>
+    <g>
+      <rect x="452.93" y="375.12" width="31.25" height="75.77" transform="translate(881.57 -55.55) rotate(90)" style="fill: #4480be;"/>
+      <text transform="translate(444.9 417.56) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Linear</tspan></text>
+    </g>
+    <polygon points="472.29 428.63 468.56 433.92 464.82 428.63 472.29 428.63" style="fill: #4480be;"/>
+  </g>
+  <g>
+    <rect x="585.89" y="410.06" width="31.25" height="75.77" transform="translate(1049.47 -153.57) rotate(90)" style="fill: #a644f2;"/>
+    <text transform="translate(583.36 452.5)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Tanh</tspan></text>
+    <g>
+      <rect x="585.89" y="375.12" width="31.25" height="75.77" transform="translate(1014.52 -188.51) rotate(90)" style="fill: #4480be;"/>
+      <text transform="translate(577.86 417.56) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Linear</tspan></text>
+    </g>
+    <polygon points="605.25 428.63 601.52 433.92 597.78 428.63 605.25 428.63" style="fill: #4480be;"/>
+  </g>
+  <g>
+    <rect x="718.85" y="375.12" width="31.25" height="75.77" transform="translate(1147.48 -321.47) rotate(90)" style="fill: #4480be;"/>
+    <text transform="translate(710.82 417.56) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Linear</tspan></text>
+  </g>
+  <g>
+    <g>
+      <rect x="128.98" y="169.35" width="31.25" height="75.77" transform="translate(351.84 62.64) rotate(90)" style="fill: #66b718;"/>
+      <text transform="translate(118.53 211.79) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">STN3D</tspan></text>
+    </g>
+    <g>
+      <rect x="721.42" y="177.44" width="47.43" height="75.77" transform="translate(960.47 -529.81) rotate(90)" style="fill: #db5756;"/>
+      <text transform="translate(727.57 210.02)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Max </tspan><tspan x="-9.87" y="18">Pooling</tspan></text>
+    </g>
+    <g>
+      <rect x="292.75" y="255.42" width="31.25" height="75.77" transform="translate(601.69 -15.07) rotate(90)" style="fill: #7a42f4;"/>
+      <text transform="translate(289.69 297.86)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">ReLU</tspan></text>
+      <rect x="284.66" y="212.39" width="47.43" height="75.77" transform="translate(558.65 -58.1) rotate(90)" style="fill: #15ba93;"/>
+      <g>
+        <rect x="292.75" y="169.35" width="31.25" height="75.77" transform="translate(515.61 -101.14) rotate(90)" style="fill: #4480be;"/>
+        <text transform="translate(280.6 211.79) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Conv1D</tspan></text>
+      </g>
+      <text transform="translate(286.38 245.83)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Batch </tspan><tspan x="1.15" y="18">Norm</tspan></text>
+      <polygon points="312.11 273.99 308.38 279.28 304.64 273.99 312.11 273.99" style="fill: #15ba93;"/>
+      <polygon points="312.11 222.86 308.38 228.15 304.64 222.86 312.11 222.86" style="fill: #4480be;"/>
+    </g>
+    <g>
+      <rect x="438.34" y="255.42" width="31.25" height="75.77" transform="translate(747.27 -160.65) rotate(90)" style="fill: #7a42f4;"/>
+      <text transform="translate(435.27 297.86)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">ReLU</tspan></text>
+      <rect x="430.25" y="212.39" width="47.43" height="75.77" transform="translate(704.24 -203.69) rotate(90)" style="fill: #15ba93;"/>
+      <g>
+        <rect x="438.34" y="169.35" width="31.25" height="75.77" transform="translate(661.2 -246.73) rotate(90)" style="fill: #4480be;"/>
+        <text transform="translate(426.18 211.79) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Conv1D</tspan></text>
+      </g>
+      <text transform="translate(431.97 245.83)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Batch </tspan><tspan x="1.15" y="18">Norm</tspan></text>
+      <polygon points="457.7 273.99 453.96 279.28 450.23 273.99 457.7 273.99" style="fill: #15ba93;"/>
+      <polygon points="457.7 222.86 453.96 228.15 450.23 222.86 457.7 222.86" style="fill: #4480be;"/>
+    </g>
+    <g>
+      <rect x="575.83" y="212.39" width="47.43" height="75.77" transform="translate(849.82 -349.28) rotate(90)" style="fill: #15ba93;"/>
+      <g>
+        <rect x="583.93" y="169.35" width="31.25" height="75.77" transform="translate(806.79 -392.31) rotate(90)" style="fill: #4480be;"/>
+        <text transform="translate(571.77 211.79) scale(1.04 1)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Conv1D</tspan></text>
+      </g>
+      <text transform="translate(577.55 245.83)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Batch </tspan><tspan x="1.15" y="18">Norm</tspan></text>
+      <polygon points="603.28 222.86 599.55 228.15 595.82 222.86 603.28 222.86" style="fill: #4480be;"/>
+    </g>
+    <g>
+      <path d="M346.26,293.31c35.02,0,22.5-78.19,63.38-85.52" style="fill: none; stroke: #7a42f4; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="408.8 212.49 416.08 207.24 407.89 203.56 408.8 212.49" style="fill: #7a42f4;"/>
+    </g>
+    <g>
+      <path d="M491.85,293.31c35.02,0,22.5-78.19,63.38-85.52" style="fill: none; stroke: #7a42f4; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="554.39 212.49 561.66 207.24 553.48 203.56 554.39 212.49" style="fill: #7a42f4;"/>
+    </g>
+    <g>
+      <path d="M637.44,250.27c35.01,0,22.5-39.08,63.36-42.76" style="fill: none; stroke: #15ba93; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="699.73 212.13 707.25 207.24 699.25 203.17 699.73 212.13" style="fill: #15ba93;"/>
+    </g>
+    <circle cx="218.24" cy="263.8" r="13.52" style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <line x1="223.13" y1="258.21" x2="213.06" y2="268.27" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <line x1="213.06" y1="258.21" x2="223.13" y2="268.27" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <g>
+      <path d="M182.49,207.24c17.28,0,32.98,13.19,35.42,36.58" style="fill: none; stroke: #66b718; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="213.25 242.81 218.24 250.27 222.21 242.23 213.25 242.81" style="fill: #66b718;"/>
+    </g>
+    <g>
+      <path d="M55.79,263.24c18.27,0,12.4-49.64,44.49-55.45" style="fill: none; stroke: #ff7900; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="99.45 212.5 106.71 207.24 98.52 203.57 99.45 212.5" style="fill: #ff7900;"/>
+    </g>
+    <g>
+      <path d="M198.26,263.79c-28.25-.07-75.74-.55-142.48-.55" style="fill: none; stroke: #ff7900; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="196.96 259.28 204.72 263.8 196.93 268.25 196.96 259.28" style="fill: #ff7900;"/>
+    </g>
+    <g>
+      <path d="M231.76,263.8c22.98,0,11.73-48.26,32.33-55.63" style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="263.63 213.02 270.49 207.24 262.05 204.19 263.63 213.02" style="fill: #231f20;"/>
+    </g>
+    <rect x="140.23" y="353.58" width="47.43" height="85.95" transform="translate(560.51 232.61) rotate(90)" style="fill: #618706;"/>
+    <text transform="translate(129.79 392.11)" style="fill: #fff; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-size: 15px; font-weight: 800;"><tspan x="0" y="0">Point Net</tspan><tspan x="5.33" y="18">Encoder</tspan></text>
+    <g>
+      <line x1="120.97" y1="372.85" x2="118.03" y2="368.8" style="fill: none; stroke: #618706; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <path d="M112.16,360.73l-46.5-63.93c-6.42-8.83-9.88-19.46-9.88-30.37v-72.32c0-21.29,17.26-38.54,38.54-38.54h712.87c21.29,0,38.54,17.26,38.54,38.54v89.11c0,21.29-17.26,38.54-38.54,38.54h-497.95c-18.23,0-36.03,5.53-51.06,15.85l-43.02,29.57" style="fill: none; stroke: #618706; stroke-dasharray: 9.98 9.98; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <line x1="211.05" y1="370.01" x2="206.93" y2="372.85" style="fill: none; stroke: #618706; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    </g>
+    <g>
+      <line x1="783.02" y1="215.33" x2="839.28" y2="215.33" style="fill: none; stroke: #db5656; stroke-miterlimit: 10; stroke-width: 3px;"/>
+      <polygon points="837.96 219.82 845.73 215.33 837.96 210.84 837.96 219.82" style="fill: #db5656;"/>
+    </g>
+    <text transform="translate(70.41 286.55)" style="font-size: 15px;"><tspan x="0" y="0" style="fill: #ff7900; font-family: SupremeTrialTT-Black, &apos;Supreme Trial TT&apos;; font-weight: 800;">X</tspan><tspan x="9.96" y="0" style="font-family: AndaleMono, &apos;Andale Mono&apos;;">:</tspan><tspan x="18.96" y="0" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; letter-spacing: 0em;">B x 3 x N</tspan></text>
+    <text transform="translate(356.76 236.2) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 64 x N</tspan></text>
+    <text transform="translate(506.7 232.31) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 128 x N</tspan></text>
+    <text transform="translate(649.03 233.72) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 1024 x N</tspan></text>
+    <text transform="translate(786.58 239.05)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 1024</tspan></text>
+  </g>
+  <g>
+    <path d="M373.49,447.98c34.99,0,11.06-30.55,50.73-33.47" style="fill: none; stroke: #a644f2; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="423.1 419.11 430.67 414.29 422.72 410.14 423.1 419.11" style="fill: #a644f2;"/>
+  </g>
+  <g>
+    <path d="M506.45,447.98c34.99,0,11.06-30.55,50.73-33.47" style="fill: none; stroke: #a644f2; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="556.06 419.11 563.63 414.29 555.67 410.14 556.06 419.11" style="fill: #a644f2;"/>
+  </g>
+  <g>
+    <path d="M639.4,447.98c34.99,0,11.06-30.55,50.73-33.47" style="fill: none; stroke: #a644f2; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="689.02 419.11 696.59 414.29 688.63 410.14 689.02 419.11" style="fill: #a644f2;"/>
+  </g>
+  <g>
+    <line x1="772.36" y1="484.45" x2="823.09" y2="484.45" style="fill: none; stroke: #4480be; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="821.77 488.94 829.55 484.45 821.77 479.97 821.77 488.94" style="fill: #4480be;"/>
+  </g>
+  <g>
+    <line x1="772.36" y1="414.29" x2="823.09" y2="414.29" style="fill: none; stroke: #4480be; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="821.77 418.78 829.55 414.29 821.77 409.8 821.77 418.78" style="fill: #4480be;"/>
+  </g>
+  <text transform="translate(394.41 413.53) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 512</tspan></text>
+  <text transform="translate(528.14 414.85) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 256</tspan></text>
+  <text transform="translate(661.42 414.85) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 256</tspan></text>
+  <text transform="translate(781.91 406.2)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 6</tspan></text>
+  <text transform="translate(783.77 476.73)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 1</tspan></text>
+  <circle cx="244.26" cy="439.08" r="13.52" style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 3px;"/>
+  <line x1="251.23" y1="438.53" x2="236.99" y2="438.53" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 3px;"/>
+  <line x1="244.11" y1="431.41" x2="244.11" y2="445.64" style="fill: none; stroke: #000; stroke-miterlimit: 10; stroke-width: 3px;"/>
+  <g>
+    <path d="M257.78,439.08c22.97,0,12.76-21.61,33.49-24.58" style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="290.25 419.16 297.71 414.18 289.67 410.21 290.25 419.16" style="fill: #231f20;"/>
+  </g>
+  <g>
+    <path d="M257.78,439.08c22.98,0,12.75,38.84,33.52,44.65" style="fill: none; stroke: #231f20; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="289.4 487.82 297.71 484.44 290.63 478.93 289.4 487.82" style="fill: #231f20;"/>
+  </g>
+  <g>
+    <path d="M206.93,396.56c17.21,0,34.17,1.33,36.94,22.55" style="fill: none; stroke: #618706; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="239.17 418.17 244.26 425.56 248.12 417.46 239.17 418.17" style="fill: #618706;"/>
+  </g>
+  <g>
+    <path d="M120.97,439.08h103.3" style="fill: none; stroke: #2e29ef; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="222.96 443.57 230.73 439.08 222.96 434.59 222.96 443.57" style="fill: #2e29ef;"/>
+  </g>
+  <g>
+    <path d="M90.85,396.56h25.34" style="fill: none; stroke: #ff2a00; stroke-miterlimit: 10; stroke-width: 3px;"/>
+    <polygon points="114.88 401.05 122.65 396.56 114.88 392.07 114.88 401.05" style="fill: #ff2a00;"/>
+  </g>
+  <text transform="translate(43.09 400.46)" style="fill: #ff2a00; font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">Points</tspan></text>
+  <text transform="translate(42.92 443.84)" style="fill: #2e29ef; font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">Last Joints</tspan></text>
+  <text transform="translate(271.31 413.86) rotate(-45)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">B x 1030</tspan></text>
+  <g>
+    <path d="M518,486.95c3.22,0,3.22-5,0-5s-3.22,5,0,5h0Z" style="fill: #231f20;"/>
+    <path d="M539.43,486.95c3.22,0,3.22-5,0-5s-3.22,5,0,5h0Z" style="fill: #231f20;"/>
+    <path d="M560.86,486.95c3.22,0,3.22-5,0-5s-3.22,5,0,5h0Z" style="fill: #231f20;"/>
+  </g>
+  <text transform="translate(836.79 417.56)" style="font-size: 15px;"><tspan x="0" y="0" style="font-family: Times-Bold, Times; font-weight: 700;">∆ </tspan><tspan x="12.93" y="0" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; letter-spacing: 0em;">Join Angle</tspan></text>
+  <text transform="translate(839.11 489.04)" style="font-family: SupremeTrialTT-Regular, &apos;Supreme Trial TT&apos;; font-size: 15px;"><tspan x="0" y="0">Policy value</tspan></text>
+  <path d="M106.71,191.61l-22.11-58.98c-1.67-4.45-2.52-9.17-2.52-13.93v-50.42c0-21.91,17.76-39.67,39.67-39.67h452.13c21.91,0,39.67,17.76,39.67,39.67v24.03c0,21.91-17.76,39.67-39.67,39.67H237.3c-14.88,0-28.51,8.33-35.3,21.57l-19.51,38.06" style="fill: #fff; stroke: #66b718; stroke-dasharray: 10 10; stroke-miterlimit: 10; stroke-width: 3px;"/>
+</svg>
